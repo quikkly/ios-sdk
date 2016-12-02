@@ -1,0 +1,14 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+### 3.1.0
+### Added
+- Support for Spotify OAuth API
+- Support for the new action for Spotify's 'Follow Artist' endpoint.
+- Support for the new action for Spotify's 'Follow Playlist' endpoint.
+- Support for the new action 'Buy on Amazon'
+- Enhanced Universal basket internal Webview
+
+### Changed
+- version number to 3.1.0

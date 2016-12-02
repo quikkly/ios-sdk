@@ -1,0 +1,34 @@
+{
+    "name": "Quikkly",
+    "version": "0.1",
+    "homepage": "http://www.quikkly.io",
+    "license": {
+        "type": "Commercial",
+        "file": "LICENSE"
+    },
+    "authors": {
+        "Quikkly Ltd": "gregg@quikklymobile.com"
+    },
+    "summary": "The Quikkly iOS SDK",
+    "platforms": {
+        "ios": "8.0"
+    },
+    "source": {
+        "http": "https://github.com/quikkly/ios-sdk/Quikkly.framework"
+    },
+    "vendored_frameworks": "Quikkly.framework",
+    "frameworks": [
+        "UIKit",
+        "WebKit",
+        "MessageUI",
+        "QuartzCore",
+        "MediaPlayer",
+        "AddressBookUI",
+        "AddressBook",
+        "EventKitUI",
+        "EventKit",
+        "CoreLocation",
+        "CoreBluetooth"
+    ],
+    "requires_arc": true
+}
