@@ -1,18 +1,25 @@
-# Quikkly SDK for iOS BETA
+![Quikkly SDK for iOS](https://github.com/quikkly/ios-sdk/blob/master/banner.png?raw=true)
 
 ![Build Passing](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![Platforms iOS](https://img.shields.io/badge/platforms-ios%208%2B-blue.svg)
 ![Languages](https://img.shields.io/badge/languages-swift3%20%7C%20objc-blue.svg)
-![CocoaPods Compatible](https://img.shields.io/badge/cocoapods-compatible-green.svg)
-![Carthage Compatible](https://img.shields.io/badge/carthage-compatible-green.svg)
+[![CocoaPods Compatible](https://img.shields.io/badge/cocoapods-compatible-green.svg)](https://github.com/CocoaPods/CocoaPods)
 [![Website](https://img.shields.io/badge/quikkly.io-developers-5cb8a7.svg)](https://developers.quikkly.io)
+<!--[![Carthage compatible](https://img.shields.io/badge/carthage-compatible-green.svg)](https://github.com/Carthage/Carthage)-->
 
 Quikkly is the easiest way to implement smart scannables.
 
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
+  - [CocoaPods] (#cocoapods)
+  - [Manual] (#manual)
 - [Usage](#usage)
+  - [Setup] (#setup)
+  - [Scanning](#scanning)
+  - [Processing Actions](#processing-actions)
+  - [Generating Scannables](#generating-scannables)
+  - [Displaying Scannables](#displaying-scannables)
 
 ## Features
 
@@ -38,7 +45,7 @@ To use the SDK with CocoaPods add the following lines to your podfile's target:
 ```
 use_frameworks!
 
-pod 'QuikklySDK', :git => 'https://github.com/quikkly/ios-sdk.git'
+pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git'
 ```
 
 Currently there bitcode isn't supported, so these lines have to be added at the end of your podfile:
@@ -53,8 +60,15 @@ post_install do |installer|
 end
 ```
 
-### Carthage
+<!--### Carthage
 
+Add this to your Cartfile:
+```
+github "quikkly/ios-sdk" "master"
+```
+
+Note that bitcode has to be turned off for now. We're working on a solution to this problem.
+-->
 ### Manual
 
 1. Download and add `Quikkly.framework` to your project.
@@ -83,11 +97,11 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 
 3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
 
-### Scanning/Detection
+### Scanning
 
 #### Scanner with default UI
 
-For a simple and hassle free integration a view controller handeling the detection of Quikkly back-end based Scannables is provided.
+For a simple and hassle free integration a view controller handling the detection of Quikkly back-end based Scannables is provided.
 It's as simple as this.
 
 ```
@@ -157,7 +171,7 @@ For instance:
 let action = WebsiteAction(withUrl: URL(string: "https://quikkly.io"))
 ```
 
-Then it can be passed as a parameter of the initializer. The skin can be nil as it will then use the default skin provided by the Quikkly platform.
+Then it can be passed as a parameter of the initializer. The skin can be nil as it will then use the default skin provided by the Quikkly platform, or you can instantiate a Skin object. Please see [here](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for more details
 
 ```
 Scannable(withAction: action, skin: nil) { (success, scannable) in
@@ -169,7 +183,7 @@ Scannable(withAction: action, skin: nil) { (success, scannable) in
 
 #### Without Quikkly back-end
 
-Scannables can be generated for use on your own back-end. Instantiating them requires a value and a Skin for visual representation with a ScannableView (explained below).
+Scannables can be generated for use on your own back-end. Instantiating them requires a value and a [Skin](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for visual representation with a ScannableView (explained below).
 
 ```
 let skin = Scannable.Skin()
