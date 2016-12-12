@@ -42,7 +42,7 @@ In order to use this SDK, a Quikkly app key is required. Visit [here](https://de
 
 To use the SDK with CocoaPods add the following lines to your podfile's target:
 
-```
+```ruby
 use_frameworks!
 
 pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git'
@@ -50,7 +50,7 @@ pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git'
 
 Currently there bitcode isn't supported, so these lines have to be added at the end of your podfile:
 
-```
+```ruby
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
@@ -83,7 +83,7 @@ In order to use our SDK there are a few pre-requisite steps required when settin
 
 1. Set the Quikkly API key in your AppDelegate. The Value for the key will be your App key obtained from Quikkly ([here](http://www.quikklytags.info/developers/)).
 
-```
+```Swift
 func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         // Quikkly framework setup
@@ -104,7 +104,7 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 For a simple and hassle free integration a view controller handling the detection of Quikkly back-end based Scannables is provided.
 It's as simple as this.
 
-```
+```Swift
 let scanViewController = ScanViewController()
 self.present(scanViewController, animated: true, completion: {})
 ```
@@ -116,7 +116,7 @@ The ScanViewController also handles the action processing.
 For a more flexible implementation there is a ScanView class.
 It will notify it's ScanViewDelegate object about detected scannables.
 
-```
+```Swift
 func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {   
     // Handle detected scannable
     if let scannable = scannables.first {
@@ -131,7 +131,7 @@ Note that this does not automatically handle the action as well. The detected Sc
 
 The Scannable class has some static methods to detect scannables in a CGImage.
 
-```
+```Swift
 Scannable.detect(inImage: cgImage) { (scannables) in
     if let scannable = scannable.first {
         //do something with this object
@@ -145,7 +145,7 @@ Since Scannables do not know about their linked action they have to be processed
 The action processor will then retrieve the action data from the Quikkly back-end.
 
 Simply add:
-```
+```Swift
 let actionProcessor = ActionProcessor()
 
 self.actionProcessor.process(scannable: scannable)
@@ -154,7 +154,7 @@ self.showActivityIndicatorView()
 
 The ActionProcessorDelegate provides the option to respond to its lifecycle (for instance, to display/hide activity indicator views, or to handle the result of a performed action).
 
-```
+```Swift
 func actionProcessor(_ actionProcessor: ActionProcessor, didProcessAction action: Action?, withResult result: ActionResult) {
     self.hideActivityIndicatorView()
 }
@@ -167,13 +167,13 @@ func actionProcessor(_ actionProcessor: ActionProcessor, didProcessAction action
 To create a scannable on the Quikkly back-end, an Action object has to be instantiated first.
 For instance:
 
-```
+```Swift
 let action = WebsiteAction(withUrl: URL(string: "https://quikkly.io"))
 ```
 
 Then it can be passed as a parameter of the initializer. The skin can be nil as it will then use the default skin provided by the Quikkly platform, or you can instantiate a Skin object. Please see [here](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for more details
 
-```
+```Swift
 Scannable(withAction: action, skin: nil) { (success, scannable) in
     if success {
         //use scannable object
@@ -185,7 +185,7 @@ Scannable(withAction: action, skin: nil) { (success, scannable) in
 
 Scannables can be generated for use on your own back-end. Instantiating them requires a value and a [Skin](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for visual representation with a ScannableView (explained below).
 
-```
+```Swift
 let skin = Scannable.Skin()
 //set the skin object's properties (colour hex codes, image url, etc)
 ...
@@ -196,7 +196,7 @@ let scannable = Scannable(withValue: NSNumber(value: 42587309), skin: skin)
 
 Simply set the scannable property of a ScannableView instance.
 
-```
+```Swift
 self.scannableView = ScannableView()
-self.scannableView.scannable = s //s... some previously instantiated Scannable object
+self.scannableView.scannable = scannable
 ```

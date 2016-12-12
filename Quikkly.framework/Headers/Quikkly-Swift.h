@@ -192,6 +192,9 @@ SWIFT_PROTOCOL("_TtP7Quikkly14ActionDelegate_")
 @class Scannable;
 @protocol ActionProcessorDelegate;
 
+/**
+  ActionProcessor for handling Quikkly actions
+*/
 SWIFT_CLASS("_TtC7Quikkly15ActionProcessor")
 @interface ActionProcessor : NSObject <ActionDelegate>
 @property (nonatomic, readonly) BOOL isLocked;
@@ -486,7 +489,7 @@ SWIFT_CLASS("_TtC7Quikkly18ScanViewController")
 
 SWIFT_CLASS("_TtC7Quikkly9Scannable")
 @interface Scannable : NSObject
-@property (nonatomic, strong) NSNumber * _Nonnull value;
+@property (nonatomic, readonly, strong) NSNumber * _Nonnull value;
 @property (nonatomic, strong) Skin * _Nonnull skin;
 /**
   Asynchronous detection of scannables in an image.
@@ -514,7 +517,7 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithAction:(Action * _Nonnull)action skin:(Skin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, Scannable * _Nonnull))completion OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithAction:(Action * _Nonnull)action skin:(Skin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, Scannable * _Nonnull))completion;
 /**
   Generates a scannable based on an identifier and a custom skin object
   \param value A numeric integer representation of the new Scannable object. The range of valid numbers is from 0 to 12 billion (12 * 10^9)
@@ -525,7 +528,7 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithValue:(NSNumber * _Nonnull)value skin:(Skin * _Nonnull)skin OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithValue:(NSNumber * _Nonnull)value skin:(Skin * _Nonnull)skin;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
