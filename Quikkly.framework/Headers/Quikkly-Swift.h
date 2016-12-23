@@ -123,15 +123,15 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
-enum ActionType : NSInteger;
-@class ActionResult;
+enum QKActionType : NSInteger;
+@class QKActionResult;
 @class UIViewController;
-@protocol ActionDelegate;
+@protocol QKActionDelegate;
 
-SWIFT_CLASS("_TtC7Quikkly6Action")
-@interface Action : NSObject
-@property (nonatomic, readonly) enum ActionType type;
-@property (nonatomic, weak) id <ActionDelegate> _Nullable delegate;
+SWIFT_CLASS_NAMED("Action")
+@interface QKAction : NSObject
+@property (nonatomic, readonly) enum QKActionType type;
+@property (nonatomic, weak) id <QKActionDelegate> _Nullable delegate;
 /**
   A key value pair representation of the action’s properties/data.
   In a custom action this computed property MUST be overridden to store the action data on the backend.
@@ -144,7 +144,7 @@ SWIFT_CLASS("_TtC7Quikkly6Action")
   \param completion block must be invoked.
 
 */
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
+- (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 /**
   Presents a view controller on th1e app’s root view controller unless the action’s delegate blocks this.
   Use this method instead of manually presenting or query the delegate first.
@@ -168,37 +168,37 @@ SWIFT_CLASS("_TtC7Quikkly6Action")
 @end
 
 
-SWIFT_PROTOCOL("_TtP7Quikkly14ActionDelegate_")
-@protocol ActionDelegate
+SWIFT_PROTOCOL_NAMED("ActionDelegate")
+@protocol QKActionDelegate
 @optional
 /**
   Whether the action should display the provided view controller (for instance, to display the action result data).
 */
-- (BOOL)action:(Action * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
+- (BOOL)action:(QKAction * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
 /**
   Invoked when a default view controller to diplay the action result will be presented.
 */
-- (void)action:(Action * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)action:(QKAction * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
 /**
   Invoked when a default view controller to diplay the action result was dismissed.
 */
-- (void)action:(Action * _Nonnull)action didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)action:(QKAction * _Nonnull)action didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
 /**
   Whether the action should open the provided URL.
 */
-- (BOOL)action:(Action * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
+- (BOOL)action:(QKAction * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
 @end
 
-@class Scannable;
-@protocol ActionProcessorDelegate;
+@class QKScannable;
+@protocol QKActionProcessorDelegate;
 
 /**
   ActionProcessor for handling Quikkly actions
 */
-SWIFT_CLASS("_TtC7Quikkly15ActionProcessor")
-@interface ActionProcessor : NSObject <ActionDelegate>
+SWIFT_CLASS_NAMED("ActionProcessor")
+@interface QKActionProcessor : NSObject <QKActionDelegate>
 @property (nonatomic, readonly) BOOL isLocked;
-@property (nonatomic, weak) id <ActionProcessorDelegate> _Nullable delegate;
+@property (nonatomic, weak) id <QKActionProcessorDelegate> _Nullable delegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 /**
   Processing a Scannable object to perform its Action stored on the Quikkly back-end.
@@ -208,7 +208,7 @@ SWIFT_CLASS("_TtC7Quikkly15ActionProcessor")
   returns:
   Whether processing was started. If false, the completion block will not be invoked.
 */
-- (BOOL)processWithScannable:(Scannable * _Nonnull)scannable;
+- (BOOL)processWithScannable:(QKScannable * _Nonnull)scannable;
 /**
   Processing a barcode to perform its Action stored on the Quikkly back-end.
   \param barcode A String representation of a barcode
@@ -225,7 +225,7 @@ SWIFT_CLASS("_TtC7Quikkly15ActionProcessor")
   \param completion Returns a nullable action object.
 
 */
-- (void)actionForScannable:(Scannable * _Nonnull)scannable completion:(void (^ _Nonnull)(Action * _Nullable))completion;
+- (void)actionForScannable:(QKScannable * _Nonnull)scannable completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
 /**
   Retrieves the Action object linked to a barcode on the Quikkly back-end.
   \param barcode The barcode to find related Actions for.
@@ -233,209 +233,209 @@ SWIFT_CLASS("_TtC7Quikkly15ActionProcessor")
   \param completion Returns a nullable action object.
 
 */
-- (void)actionForBarcode:(NSString * _Nonnull)barcode completion:(void (^ _Nonnull)(Action * _Nullable))completion;
-- (BOOL)action:(Action * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
-- (void)action:(Action * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
-- (BOOL)action:(Action * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
+- (void)actionForBarcode:(NSString * _Nonnull)barcode completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
+- (BOOL)action:(QKAction * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
+- (void)action:(QKAction * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (BOOL)action:(QKAction * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
 @end
 
 
-SWIFT_PROTOCOL("_TtP7Quikkly23ActionProcessorDelegate_")
-@protocol ActionProcessorDelegate
+SWIFT_PROTOCOL_NAMED("ActionProcessorDelegate")
+@protocol QKActionProcessorDelegate
 @optional
 /**
   \code
   Processor will start processing
 
   \endcode*/
-- (void)actionProcessorWillStartProcessing:(ActionProcessor * _Nonnull)actionProcessor;
+- (void)actionProcessorWillStartProcessing:(QKActionProcessor * _Nonnull)actionProcessor;
 /**
   \code
   Processor has finished processing. The action and result are provided.
 
   \endcode*/
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor didProcessAction:(Action * _Nullable)action withResult:(ActionResult * _Nonnull)result;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didProcessAction:(QKAction * _Nullable)action withResult:(QKActionResult * _Nonnull)result;
 /**
   Whether the processor should display the default action result view controller. Override and return false to prevent this.
 
   returns:
   default is true
 */
-- (BOOL)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor shouldPresentActionResultViewController:(UIViewController * _Nonnull)viewController forAction:(Action * _Nullable)action;
+- (BOOL)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor shouldPresentActionResultViewController:(UIViewController * _Nonnull)viewController forAction:(QKAction * _Nullable)action;
 /**
   Invoked when a default view controller to diplay the action result will be presented.
 */
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
 /**
   Invoked when a default view controller to diplay the action result was dismissed.
 */
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
 /**
   Whether the processor should open the provided URL. Override and return false to prevent this.
 
   returns:
   default is true
 */
-- (BOOL)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor shouldOpenActionResultURL:(NSURL * _Nonnull)url forAction:(Action * _Nonnull)action;
+- (BOOL)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor shouldOpenActionResultURL:(NSURL * _Nonnull)url forAction:(QKAction * _Nonnull)action;
 /**
   Allows using any custom subclass of Action handle actions of type .custom. Perform will be called by the ActionProcessor.
 
   returns:
   The Action object to handle the provided actionData
 */
-- (Action * _Nonnull)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor customActionForData:(NSDictionary<NSString *, id> * _Nonnull)data;
+- (QKAction * _Nonnull)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor customActionForData:(NSDictionary<NSString *, id> * _Nonnull)data;
 @end
 
-enum State : NSInteger;
+enum QKActionResultState : NSInteger;
 
-SWIFT_CLASS("_TtC7Quikkly12ActionResult")
-@interface ActionResult : NSObject
-@property (nonatomic) enum State state;
-@property (nonatomic, strong) Action * _Nullable action;
-- (nonnull instancetype)initWithState:(enum State)state action:(Action * _Nullable)action OBJC_DESIGNATED_INITIALIZER;
+SWIFT_CLASS_NAMED("ActionResult")
+@interface QKActionResult : NSObject
+@property (nonatomic) enum QKActionResultState state;
+@property (nonatomic, strong) QKAction * _Nullable action;
+- (nonnull instancetype)initWithState:(enum QKActionResultState)state action:(QKAction * _Nullable)action OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-typedef SWIFT_ENUM(NSInteger, State) {
-  StateSuccess = 0,
-  StateFailure = 1,
-  StateCancelled = 2,
-  StateUnavailable = 3,
+typedef SWIFT_ENUM_NAMED(NSInteger, QKActionResultState, "State") {
+  QKActionResultStateSuccess = 0,
+  QKActionResultStateFailure = 1,
+  QKActionResultStateCancelled = 2,
+  QKActionResultStateUnavailable = 3,
 };
 
 /**
   An enum of available Quikkly actions.
   Note: “custom” is not implemented and needs to be provided by the app.
 */
-typedef SWIFT_ENUM(NSInteger, ActionType) {
-  ActionTypeUnknown = -1,
-  ActionTypeLikeOnFacebook = 0,
-  ActionTypeFollowOnTwitter = 1,
-  ActionTypeFollowOnFacebook = 2,
-  ActionTypeFollowOnInstagram = 3,
-  ActionTypeFollowOnGooglePlus = 4,
-  ActionTypeFindOnMaps = 6,
-  ActionTypeWatchOnYoutube = 7,
-  ActionTypeListenOnSpotify = 8,
-  ActionTypeDownloadOnAppStore = 11,
-  ActionTypeDownloadOnGooglePlay = 12,
-  ActionTypeWebsite = 17,
-  ActionTypeBuyOnAmazon = 18,
-  ActionTypeListenOnSoundcloud = 24,
-  ActionTypeBuy = 30,
-  ActionTypeVideoThenWeb = 32,
-  ActionTypeListenOnAppleMusic = 33,
-  ActionTypeRateOnTripAdvisor = 34,
-  ActionTypeWatchOnTwitch = 35,
-  ActionTypeViewOnPinterest = 36,
-  ActionTypeViewOnEbay = 37,
-  ActionTypeWatchOnVimeo = 39,
-  ActionTypeMulti = 42,
-  ActionTypeViewOnLinkedIn = 46,
-  ActionTypeSearchOnTwitter = 51,
-  ActionTypeViewFacebookPage = 52,
-  ActionTypeWatchOnVine = 53,
-  ActionTypeTweetOnTwitter = 55,
-  ActionTypeLikeOnInstagram = 56,
-  ActionTypeMessageOnTwitter = 57,
-  ActionTypeCustom = 1000,
+typedef SWIFT_ENUM_NAMED(NSInteger, QKActionType, "ActionType") {
+  QKActionTypeUnknown = -1,
+  QKActionTypeLikeOnFacebook = 0,
+  QKActionTypeFollowOnTwitter = 1,
+  QKActionTypeFollowOnFacebook = 2,
+  QKActionTypeFollowOnInstagram = 3,
+  QKActionTypeFollowOnGooglePlus = 4,
+  QKActionTypeFindOnMaps = 6,
+  QKActionTypeWatchOnYoutube = 7,
+  QKActionTypeListenOnSpotify = 8,
+  QKActionTypeDownloadOnAppStore = 11,
+  QKActionTypeDownloadOnGooglePlay = 12,
+  QKActionTypeWebsite = 17,
+  QKActionTypeBuyOnAmazon = 18,
+  QKActionTypeListenOnSoundcloud = 24,
+  QKActionTypeBuy = 30,
+  QKActionTypeVideoThenWeb = 32,
+  QKActionTypeListenOnAppleMusic = 33,
+  QKActionTypeRateOnTripAdvisor = 34,
+  QKActionTypeWatchOnTwitch = 35,
+  QKActionTypeViewOnPinterest = 36,
+  QKActionTypeViewOnEbay = 37,
+  QKActionTypeWatchOnVimeo = 39,
+  QKActionTypeMulti = 42,
+  QKActionTypeViewOnLinkedIn = 46,
+  QKActionTypeSearchOnTwitter = 51,
+  QKActionTypeViewFacebookPage = 52,
+  QKActionTypeWatchOnVine = 53,
+  QKActionTypeTweetOnTwitter = 55,
+  QKActionTypeLikeOnInstagram = 56,
+  QKActionTypeMessageOnTwitter = 57,
+  QKActionTypeCustom = 1000,
 };
 
 
-SWIFT_CLASS("_TtC7Quikkly9UrlAction")
-@interface UrlAction : Action
+SWIFT_CLASS_NAMED("UrlAction")
+@interface QKUrlAction : QKAction
 @property (nonatomic, copy) NSURL * _Nullable url;
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nonnull instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
+- (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly15AmazonBuyAction")
-@interface AmazonBuyAction : UrlAction
+SWIFT_CLASS_NAMED("AmazonBuyAction")
+@interface QKAmazonBuyAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly22AppStoreDownloadAction")
-@interface AppStoreDownloadAction : UrlAction
+SWIFT_CLASS_NAMED("AppStoreDownloadAction")
+@interface QKAppStoreDownloadAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly22AppleMusicListenAction")
-@interface AppleMusicListenAction : UrlAction
+SWIFT_CLASS_NAMED("AppleMusicListenAction")
+@interface QKAppleMusicListenAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly9BuyAction")
-@interface BuyAction : UrlAction
+SWIFT_CLASS_NAMED("BuyAction")
+@interface QKBuyAction : QKUrlAction
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly14EbayViewAction")
-@interface EbayViewAction : UrlAction
+SWIFT_CLASS_NAMED("EbayViewAction")
+@interface QKEbayViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly20FacebookFollowAction")
-@interface FacebookFollowAction : UrlAction
+SWIFT_CLASS_NAMED("FacebookFollowAction")
+@interface QKFacebookFollowAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly18FacebookLikeAction")
-@interface FacebookLikeAction : UrlAction
+SWIFT_CLASS_NAMED("FacebookLikeAction")
+@interface QKFacebookLikeAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly22FacebookViewPageAction")
-@interface FacebookViewPageAction : UrlAction
+SWIFT_CLASS_NAMED("FacebookViewPageAction")
+@interface QKFacebookViewPageAction : QKUrlAction
 - (nonnull instancetype)initWithPageId:(uint64_t)pageId OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly24GooglePlayDownloadAction")
-@interface GooglePlayDownloadAction : UrlAction
+SWIFT_CLASS_NAMED("GooglePlayDownloadAction")
+@interface QKGooglePlayDownloadAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly21InstagramFollowAction")
-@interface InstagramFollowAction : UrlAction
+SWIFT_CLASS_NAMED("InstagramFollowAction")
+@interface QKInstagramFollowAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly18LinkedInViewAction")
-@interface LinkedInViewAction : UrlAction
+SWIFT_CLASS_NAMED("LinkedInViewAction")
+@interface QKLinkedInViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly10MapsAction")
-@interface MapsAction : UrlAction
+SWIFT_CLASS_NAMED("MapsAction")
+@interface QKMapsAction : QKUrlAction
 @end
 
 @class NSNumber;
 
-SWIFT_CLASS("_TtC7Quikkly11MultiAction")
-@interface MultiAction : Action
+SWIFT_CLASS_NAMED("MultiAction")
+@interface QKMultiAction : QKAction
 @property (nonatomic, copy) NSArray<NSNumber *> * _Nullable identifiers;
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
+- (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly19PinterestViewAction")
-@interface PinterestViewAction : UrlAction
+SWIFT_CLASS_NAMED("PinterestViewAction")
+@interface QKPinterestViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -454,18 +454,35 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) User * _Nullable user;
 
 @class NSCoder;
 
-SWIFT_CLASS("_TtC7Quikkly8ScanView")
-@interface ScanView : UIView
+SWIFT_CLASS_NAMED("ScanButton")
+@interface QKScanButton : UIButton
+- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@protocol QKScanViewDelegate;
+
+SWIFT_CLASS_NAMED("ScanView")
+@interface QKScanView : UIView
+@property (nonatomic, weak) id <QKScanViewDelegate> _Nullable delegate;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)start;
 - (void)stop;
 @end
 
+
+SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
+@protocol QKScanViewDelegate
+@optional
+- (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
+- (void)scanView:(QKScanView * _Nonnull)scanView didDetectBarcode:(NSString * _Nonnull)barcode;
+@end
+
 @class NSBundle;
 
-SWIFT_CLASS("_TtC7Quikkly18ScanViewController")
-@interface ScanViewController : UIViewController <ActionProcessorDelegate>
+SWIFT_CLASS_NAMED("ScanViewController")
+@interface QKScanViewController : UIViewController <QKScanViewDelegate, QKActionProcessorDelegate>
 @property (nonatomic, readonly) UIInterfaceOrientation preferredInterfaceOrientationForPresentation;
 @property (nonatomic, readonly) UIInterfaceOrientationMask supportedInterfaceOrientations;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -477,20 +494,21 @@ SWIFT_CLASS("_TtC7Quikkly18ScanViewController")
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
-- (void)scanView:(ScanView * _Nonnull)scanView didDetectScannables:(NSArray<Scannable *> * _Nonnull)scannables;
-- (void)actionProcessorWillStartProcessing:(ActionProcessor * _Nonnull)actionProcessor;
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor didProcessAction:(Action * _Nullable)action withResult:(ActionResult * _Nonnull)result;
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
-- (void)actionProcessor:(ActionProcessor * _Nonnull)actionProcessor didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
+- (void)actionProcessorWillStartProcessing:(QKActionProcessor * _Nonnull)actionProcessor;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didProcessAction:(QKAction * _Nullable)action withResult:(QKActionResult * _Nonnull)result;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
-@class Skin;
 
-SWIFT_CLASS("_TtC7Quikkly9Scannable")
-@interface Scannable : NSObject
+@class QKScannableSkin;
+
+SWIFT_CLASS_NAMED("Scannable")
+@interface QKScannable : NSObject
 @property (nonatomic, readonly, strong) NSNumber * _Nonnull value;
-@property (nonatomic, strong) Skin * _Nonnull skin;
+@property (nonatomic, strong) QKScannableSkin * _Nonnull skin;
 /**
   Asynchronous detection of scannables in an image.
   \param image The image to scan for scannables
@@ -498,7 +516,7 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   \param completion Block with an array of detected scannables; can be empty but not nil
 
 */
-+ (void)detectInImage:(CGImageRef _Nonnull)image completion:(void (^ _Nonnull)(NSArray<Scannable *> * _Nonnull))completion;
++ (void)detectInImage:(CGImageRef _Nonnull)image completion:(void (^ _Nonnull)(NSArray<QKScannable *> * _Nonnull))completion;
 /**
   Asynchronous detection of scannables in an image
   \param image The image to scan for scannables
@@ -507,7 +525,7 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   returns:
   An array of detected Scannable objects; can be empty but not nil; Scannables will only be a raw representation (i.e. no skin object)
 */
-+ (NSArray<Scannable *> * _Nonnull)detectInImage:(CGImageRef _Nonnull)image;
++ (NSArray<QKScannable *> * _Nonnull)detectInImage:(CGImageRef _Nonnull)image;
 /**
   Generates a scannable by using the actions on the Quikkly back-end.
   The Scannable object won’t be populated instantly and will asynchronously fetch data from the Quikkly back-end.
@@ -517,7 +535,7 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithAction:(Action * _Nonnull)action skin:(Skin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, Scannable * _Nonnull))completion;
+- (nonnull instancetype)initWithAction:(QKAction * _Nonnull)action skin:(QKScannableSkin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, QKScannable * _Nonnull))completion;
 /**
   Generates a scannable based on an identifier and a custom skin object
   \param value A numeric integer representation of the new Scannable object. The range of valid numbers is from 0 to 12 billion (12 * 10^9)
@@ -528,90 +546,104 @@ SWIFT_CLASS("_TtC7Quikkly9Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithValue:(NSNumber * _Nonnull)value skin:(Skin * _Nonnull)skin;
+- (nonnull instancetype)initWithValue:(NSNumber * _Nonnull)value skin:(QKScannableSkin * _Nonnull)skin;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
+enum QKScannableSkinLayout : int32_t;
 
-SWIFT_CLASS("_TtC7Quikkly13ScannableView")
-@interface ScannableView : UIView
-@property (nonatomic, strong) Scannable * _Nullable scannable;
+SWIFT_CLASS_NAMED("ScannableSkin")
+@interface QKScannableSkin : NSObject
+@property (nonatomic, copy) NSString * _Nullable backgroundColor;
+@property (nonatomic, copy) NSString * _Nullable borderColor;
+@property (nonatomic, copy) NSString * _Nullable codeColor;
+@property (nonatomic, copy) NSString * _Nullable textColor;
+@property (nonatomic, copy) NSString * _Nullable text;
+@property (nonatomic, copy) NSString * _Nullable imageUri;
+@property (nonatomic, strong) NSNumber * _Nullable imageWidth;
+@property (nonatomic, strong) NSNumber * _Nullable imageHeight;
+@property (nonatomic, strong) NSNumber * _Nullable imageScaleFactor;
+@property (nonatomic) enum QKScannableSkinLayout layout;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)objcSetViewBoxWithX:(CGFloat)x y:(CGFloat)y width:(CGFloat)width height:(CGFloat)height;
+- (void)objcSetShowTextWithShow:(BOOL)show;
+@end
+
+typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinLayout, "Layout") {
+  QKScannableSkinLayoutBorder = 3,
+  QKScannableSkinLayoutHorizontal = 1,
+  QKScannableSkinLayoutVertical = 2,
+};
+
+
+SWIFT_CLASS_NAMED("ScannableView")
+@interface QKScannableView : UIView
+@property (nonatomic, strong) QKScannable * _Nullable scannable;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithScannable:(Scannable * _Nonnull)scannable;
+- (nonnull instancetype)initWithScannable:(QKScannable * _Nonnull)scannable;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)reload;
 - (void)layoutSubviews;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly22SoundCloudListenAction")
-@interface SoundCloudListenAction : UrlAction
+SWIFT_CLASS_NAMED("SoundCloudListenAction")
+@interface QKSoundCloudListenAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly25SpotifyFollowArtistAction")
-@interface SpotifyFollowArtistAction : Action
-@property (nonatomic, copy) NSString * _Nonnull name;
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
-- (nullable instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
-- (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-@end
-
-
-SWIFT_CLASS("_TtC7Quikkly27SpotifyFollowPlaylistAction")
-@interface SpotifyFollowPlaylistAction : Action
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC7Quikkly19SpotifyListenAction")
-@interface SpotifyListenAction : UrlAction
+SWIFT_CLASS_NAMED("SpotifyListenAction")
+@interface QKSpotifyListenAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull shareUri;
 - (nonnull instancetype)initWithShareUri:(NSString * _Nonnull)shareUri OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly21TripAdvisorRateAction")
-@interface TripAdvisorRateAction : UrlAction
+SWIFT_CLASS_NAMED("TripAdvisorRateAction")
+@interface QKTripAdvisorAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly19TwitterFollowAction")
-@interface TwitterFollowAction : Action
+SWIFT_CLASS_NAMED("TwitchWatchAction")
+@interface QKTwitchWatchAction : QKUrlAction
+- (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS_NAMED("TwitterFollowAction")
+@interface QKTwitterFollowAction : QKAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nullable instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
+- (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly20TwitterMessageAction")
-@interface TwitterMessageAction : Action
+SWIFT_CLASS_NAMED("TwitterMessageAction")
+@interface QKTwitterMessageAction : QKAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 @property (nonatomic, copy) NSString * _Nonnull message;
 @property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nullable instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
-- (void)performWithCompletion:(void (^ _Nonnull)(ActionResult * _Nonnull))completion;
+- (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly19TwitterSearchAction")
-@interface TwitterSearchAction : UrlAction
+SWIFT_CLASS_NAMED("TwitterSearchAction")
+@interface QKTwitterSearchAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull query;
 - (nonnull instancetype)initWithQuery:(NSString * _Nonnull)query OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly18TwitterTweetAction")
-@interface TwitterTweetAction : UrlAction
+SWIFT_CLASS_NAMED("TwitterTweetAction")
+@interface QKTwitterTweetAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull text;
 - (nonnull instancetype)initWithText:(NSString * _Nonnull)text OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -638,27 +670,27 @@ SWIFT_CLASS("_TtC7Quikkly18TwitterTweetAction")
 
 
 
-SWIFT_CLASS("_TtC7Quikkly16VimeoWatchAction")
-@interface VimeoWatchAction : UrlAction
+SWIFT_CLASS_NAMED("VimeoWatchAction")
+@interface QKVimeoWatchAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly15VineWatchAction")
-@interface VineWatchAction : UrlAction
+SWIFT_CLASS_NAMED("VineWatchAction")
+@interface QKVineWatchAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull identifier;
 - (nonnull instancetype)initWithIdentifier:(NSString * _Nonnull)identifier OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly13WebsiteAction")
-@interface WebsiteAction : UrlAction
+SWIFT_CLASS_NAMED("WebsiteAction")
+@interface QKWebsiteAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
-SWIFT_CLASS("_TtC7Quikkly18YoutubeWatchAction")
-@interface YoutubeWatchAction : UrlAction
+SWIFT_CLASS_NAMED("YoutubeWatchAction")
+@interface QKYoutubeWatchAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
