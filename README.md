@@ -48,7 +48,7 @@ use_frameworks!
 pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git'
 ```
 
-Currently there bitcode isn't supported, so these lines have to be added at the end of your podfile:
+Currently bitcode isn't supported, so these lines have to be added at the end of your podfile:
 
 ```ruby
 post_install do |installer|
