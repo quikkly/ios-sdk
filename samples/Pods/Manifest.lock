@@ -1,0 +1,21 @@
+PODS:
+  - Quikkly (0.1.1)
+
+DEPENDENCIES:
+  - Quikkly (from `https://github.com/quikkly/ios-sdk.git`)
+
+EXTERNAL SOURCES:
+  Quikkly:
+    :git: https://github.com/quikkly/ios-sdk.git
+
+CHECKOUT OPTIONS:
+  Quikkly:
+    :commit: c1fda2f9c4318f5b556fb71bed278acd01d7f761
+    :git: https://github.com/quikkly/ios-sdk.git
+
+SPEC CHECKSUMS:
+  Quikkly: 59074648651b92da96e9ef7627f41fb98443dd83
+
+PODFILE CHECKSUM: 3e83b0acf6a66518f5c2ae935335df6bb7a5a75b
+
+COCOAPODS: 1.1.1
