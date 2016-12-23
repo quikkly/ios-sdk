@@ -16,6 +16,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Manual] (#manual)
 - [Usage](#usage)
   - [Setup] (#setup)
+  - [Objective-C Support] (#objective-c-support)
   - [Scanning](#scanning)
   - [Processing Actions](#processing-actions)
   - [Generating Scannables](#generating-scannables)
@@ -96,6 +97,10 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 2. Some of our Quikkly actions use custom URIs to support deep linking and API calls to 3rd party services, through the `[UIApplication canOpenURL:]` mechanisms. Due to some changes in iOS 9, your `Info.plist` file should contain an `LSApplicationQueriesSchemes` key with `spotify`, `twitter`, `gplus` and `youtube` items.
 
 3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
+
+### Objective-C Support
+
+Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
 
 ### Scanning
 
