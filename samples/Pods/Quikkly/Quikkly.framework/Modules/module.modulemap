@@ -1,0 +1,10 @@
+framework module Quikkly {
+  umbrella header "Quikkly.h"
+
+  export *
+  module * { export * }
+}
+
+module Quikkly.Swift {
+    header "Quikkly-Swift.h"
+}
