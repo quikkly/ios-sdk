@@ -186,7 +186,7 @@ Scannable(withAction: action, skin: nil) { (success, scannable) in
 Scannables can be generated for use on your own back-end. Instantiating them requires a value and a [Skin](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for visual representation with a ScannableView (explained below).
 
 ```Swift
-let skin = Scannable.Skin()
+let skin = ScannableSkin()
 //set the skin object's properties (colour hex codes, image url, etc)
 ...
 let scannable = Scannable(withValue: NSNumber(value: 42587309), skin: skin)
