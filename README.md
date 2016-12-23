@@ -16,7 +16,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Manual] (#manual)
 - [Usage](#usage)
   - [Setup] (#setup)
-  - [Objective C Support] (#objective-c-support)
+  - [Objective-C Support] (#objective-c-support)
   - [Scanning](#scanning)
   - [Processing Actions](#processing-actions)
   - [Generating Scannables](#generating-scannables)
