@@ -21,6 +21,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Processing Actions](#processing-actions)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
+- [Sample Apps] (#sample-apps)
 
 ## Features
 
@@ -82,7 +83,7 @@ Note that bitcode has to be turned off for now. We're working on a solution to t
 
 In order to use our SDK there are a few pre-requisite steps required when setting up your project.
 
-1. Set the Quikkly API key in your AppDelegate. The Value for the key will be your App key obtained from Quikkly ([here](http://www.quikklytags.info/developers/)).
+1. Set the Quikkly API key in your AppDelegate. The Value for the key will be your App key obtained from Quikkly ([here](https://quikklycodes.com/developers/)).
 
 ```Swift
 func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
@@ -205,3 +206,8 @@ Simply set the scannable property of a ScannableView instance.
 self.scannableView = ScannableView()
 self.scannableView.scannable = scannable
 ```
+
+## Sample Apps
+
+For a number sample applications have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).
+We'll keep adding new ones.
