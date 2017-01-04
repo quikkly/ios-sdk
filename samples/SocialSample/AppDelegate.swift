@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = .white
         self.window?.makeKeyAndVisible()
         
-        Quikkly.apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" //insert your API key
+        Quikkly.apiKey = "1m3xsku8tl5gnlfelzrkp8kixm1vg1xejypxvxmkk9j0kixlm0jpyo5aajnk" //insert your own API key
         Quikkly.user = Quikkly.User(withId: 0, gender: "Female", dob: "08-03-1985") //set user data for insights model 
         
         return true

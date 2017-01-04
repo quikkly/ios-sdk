@@ -123,13 +123,27 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
+@class QKActionResultViewController;
+
+/**
+  The ActionResultViewControllerDelegate has to be notified when the view controller is dismissed.
+*/
+SWIFT_PROTOCOL_NAMED("ActionResultViewControllerDelegate")
+@protocol QKActionResultViewControllerDelegate
+@optional
+- (void)didDismissViewController:(QKActionResultViewController * _Nonnull)viewController;
+@end
+
 enum QKActionType : NSInteger;
 @class QKActionResult;
 @class UIViewController;
 @protocol QKActionDelegate;
 
+/**
+  Abstract action class. Shouldn’t be instantiated directly but subclassed with a specific implementation.
+*/
 SWIFT_CLASS_NAMED("Action")
-@interface QKAction : NSObject
+@interface QKAction : NSObject <QKActionResultViewControllerDelegate>
 @property (nonatomic, readonly) enum QKActionType type;
 @property (nonatomic, weak) id <QKActionDelegate> _Nullable delegate;
 /**
@@ -165,9 +179,13 @@ SWIFT_CLASS_NAMED("Action")
   whether the URL was opened.
 */
 - (BOOL)openUrl:(NSURL * _Nonnull)url;
+- (void)didDismissViewController:(QKActionResultViewController * _Nonnull)viewController;
 @end
 
 
+/**
+  ActionDelegate for responding to an Action object’s lifecycle events.
+*/
 SWIFT_PROTOCOL_NAMED("ActionDelegate")
 @protocol QKActionDelegate
 @optional
@@ -196,7 +214,7 @@ SWIFT_PROTOCOL_NAMED("ActionDelegate")
   ActionProcessor for handling Quikkly actions
 */
 SWIFT_CLASS_NAMED("ActionProcessor")
-@interface QKActionProcessor : NSObject <QKActionDelegate>
+@interface QKActionProcessor : NSObject <QKActionResultViewControllerDelegate, QKActionDelegate>
 @property (nonatomic, readonly) BOOL isLocked;
 @property (nonatomic, weak) id <QKActionProcessorDelegate> _Nullable delegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -237,9 +255,13 @@ SWIFT_CLASS_NAMED("ActionProcessor")
 - (BOOL)action:(QKAction * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
 - (void)action:(QKAction * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
 - (BOOL)action:(QKAction * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
+- (void)didDismissViewController:(QKActionResultViewController * _Nonnull)viewController;
 @end
 
 
+/**
+  ActionProcessorDelegate for handling ActionProcessor lifecycle events
+*/
 SWIFT_PROTOCOL_NAMED("ActionProcessorDelegate")
 @protocol QKActionProcessorDelegate
 @optional
@@ -288,6 +310,9 @@ SWIFT_PROTOCOL_NAMED("ActionProcessorDelegate")
 
 enum QKActionResultState : NSInteger;
 
+/**
+  The ActionResult class holds relevant information about an Action’s execution status.
+*/
 SWIFT_CLASS_NAMED("ActionResult")
 @interface QKActionResult : NSObject
 @property (nonatomic) enum QKActionResultState state;
@@ -303,9 +328,24 @@ typedef SWIFT_ENUM_NAMED(NSInteger, QKActionResultState, "State") {
   QKActionResultStateUnavailable = 3,
 };
 
+@class NSBundle;
+@class NSCoder;
+
+/**
+  The ActionResultViewController class is used for custom view controller to presented after handling actions.
+  The delegate has to be notified when it’s dismissed.
+*/
+SWIFT_CLASS_NAMED("ActionResultViewController")
+@interface QKActionResultViewController : UIViewController
+@property (nonatomic, weak) id <QKActionResultViewControllerDelegate> _Nullable delegate;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 /**
   An enum of available Quikkly actions.
-  Note: “custom” is not implemented and needs to be provided by the app.
+  Note: “custom” is not implemented and needs to be provided by the app via the ActionProcessor’s delegate protocol.
 */
 typedef SWIFT_ENUM_NAMED(NSInteger, QKActionType, "ActionType") {
   QKActionTypeUnknown = -1,
@@ -342,45 +382,65 @@ typedef SWIFT_ENUM_NAMED(NSInteger, QKActionType, "ActionType") {
 };
 
 
+/**
+  The UrlAction class is a base class for all actions that handle opening a url
+*/
 SWIFT_CLASS_NAMED("UrlAction")
 @interface QKUrlAction : QKAction
 @property (nonatomic, copy) NSURL * _Nullable url;
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nonnull instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
 - (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
 
+/**
+  The AmazonBuyAction opens an Amazon product page
+*/
 SWIFT_CLASS_NAMED("AmazonBuyAction")
 @interface QKAmazonBuyAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The AppStoreDownloadAction opens an App Store page
+*/
 SWIFT_CLASS_NAMED("AppStoreDownloadAction")
 @interface QKAppStoreDownloadAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The AppleMusicListenAction plays a song on Apple Music
+*/
 SWIFT_CLASS_NAMED("AppleMusicListenAction")
 @interface QKAppleMusicListenAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The BuyAction displays a checkout page for a physical item.
+*/
 SWIFT_CLASS_NAMED("BuyAction")
 @interface QKBuyAction : QKUrlAction
 @end
 
 
+/**
+  The EbayViewAction displays an item on Ebay
+*/
 SWIFT_CLASS_NAMED("EbayViewAction")
 @interface QKEbayViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The FacebookFollowAction class performs a follow event on Facebook
+*/
 SWIFT_CLASS_NAMED("FacebookFollowAction")
 @interface QKFacebookFollowAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
@@ -388,6 +448,9 @@ SWIFT_CLASS_NAMED("FacebookFollowAction")
 @end
 
 
+/**
+  The FacebookLikeAction performs a like event on Facebook
+*/
 SWIFT_CLASS_NAMED("FacebookLikeAction")
 @interface QKFacebookLikeAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
@@ -395,18 +458,27 @@ SWIFT_CLASS_NAMED("FacebookLikeAction")
 @end
 
 
+/**
+  The FacebookViewPageAction class displays a Facebook page
+*/
 SWIFT_CLASS_NAMED("FacebookViewPageAction")
 @interface QKFacebookViewPageAction : QKUrlAction
 - (nonnull instancetype)initWithPageId:(uint64_t)pageId OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The GooglePlayDownloadAction opens a Google Play page
+*/
 SWIFT_CLASS_NAMED("GooglePlayDownloadAction")
 @interface QKGooglePlayDownloadAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The InstagramFollowAction performs a user follow event on Instagram
+*/
 SWIFT_CLASS_NAMED("InstagramFollowAction")
 @interface QKInstagramFollowAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull name;
@@ -414,18 +486,27 @@ SWIFT_CLASS_NAMED("InstagramFollowAction")
 @end
 
 
+/**
+  The LinkedInViewAction displays a LinkedIn profile
+*/
 SWIFT_CLASS_NAMED("LinkedInViewAction")
 @interface QKLinkedInViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The MapsAction displays a location in Maps
+*/
 SWIFT_CLASS_NAMED("MapsAction")
 @interface QKMapsAction : QKUrlAction
 @end
 
 @class NSNumber;
 
+/**
+  The MultiAction displays multiple actions.
+*/
 SWIFT_CLASS_NAMED("MultiAction")
 @interface QKMultiAction : QKAction
 @property (nonatomic, copy) NSArray<NSNumber *> * _Nullable identifiers;
@@ -434,6 +515,9 @@ SWIFT_CLASS_NAMED("MultiAction")
 @end
 
 
+/**
+  The PinterestViewAction displays a pin on Pinterest
+*/
 SWIFT_CLASS_NAMED("PinterestViewAction")
 @interface QKPinterestViewAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
@@ -452,8 +536,10 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) User * _Nullable user;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NSCoder;
 
+/**
+  The ScanButton displays the SDK’s default scanner.
+*/
 SWIFT_CLASS_NAMED("ScanButton")
 @interface QKScanButton : UIButton
 - (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
@@ -462,6 +548,9 @@ SWIFT_CLASS_NAMED("ScanButton")
 
 @protocol QKScanViewDelegate;
 
+/**
+  The ScanView class displays a camera feed and detects Scannable codes.
+*/
 SWIFT_CLASS_NAMED("ScanView")
 @interface QKScanView : UIView
 @property (nonatomic, weak) id <QKScanViewDelegate> _Nullable delegate;
@@ -472,6 +561,9 @@ SWIFT_CLASS_NAMED("ScanView")
 @end
 
 
+/**
+  ScanViewDelegate for handling detection events.
+*/
 SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 @protocol QKScanViewDelegate
 @optional
@@ -479,8 +571,10 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectBarcode:(NSString * _Nonnull)barcode;
 @end
 
-@class NSBundle;
 
+/**
+  The ScanViewController class wraps a ScanView object and provides a default scanning experience.
+*/
 SWIFT_CLASS_NAMED("ScanViewController")
 @interface QKScanViewController : UIViewController <QKScanViewDelegate, QKActionProcessorDelegate>
 @property (nonatomic, readonly) UIInterfaceOrientation preferredInterfaceOrientationForPresentation;
@@ -505,6 +599,9 @@ SWIFT_CLASS_NAMED("ScanViewController")
 
 @class QKScannableSkin;
 
+/**
+  Scannable class representing a smart Quikkly scannable code.
+*/
 SWIFT_CLASS_NAMED("Scannable")
 @interface QKScannable : NSObject
 @property (nonatomic, readonly, strong) NSNumber * _Nonnull value;
@@ -552,6 +649,9 @@ SWIFT_CLASS_NAMED("Scannable")
 
 enum QKScannableSkinLayout : int32_t;
 
+/**
+  The ScannableSkin class holds relevant data for the visual representation of a Scannable object.
+*/
 SWIFT_CLASS_NAMED("ScannableSkin")
 @interface QKScannableSkin : NSObject
 @property (nonatomic, copy) NSString * _Nullable backgroundColor;
@@ -575,24 +675,36 @@ typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinLayout, "Layout") {
   QKScannableSkinLayoutVertical = 2,
 };
 
+@class UIWebView;
 
+/**
+  The ScannableView class displays Scannable objects based on their skin property.
+*/
 SWIFT_CLASS_NAMED("ScannableView")
-@interface QKScannableView : UIView
+@interface QKScannableView : UIView <UIWebViewDelegate>
 @property (nonatomic, strong) QKScannable * _Nullable scannable;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithScannable:(QKScannable * _Nonnull)scannable;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)reload;
+- (void)webViewDidFinishLoad:(UIWebView * _Nonnull)webView;
+- (void)webView:(UIWebView * _Nonnull)webView didFailLoadWithError:(NSError * _Nonnull)error;
 - (void)layoutSubviews;
 @end
 
 
+/**
+  The SoundCloudListenAction plays a song on SoundCloud
+*/
 SWIFT_CLASS_NAMED("SoundCloudListenAction")
 @interface QKSoundCloudListenAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The SpotifyListenAction plays a song on Spotify
+*/
 SWIFT_CLASS_NAMED("SpotifyListenAction")
 @interface QKSpotifyListenAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull shareUri;
@@ -600,22 +712,30 @@ SWIFT_CLASS_NAMED("SpotifyListenAction")
 @end
 
 
+/**
+  The TripAdvisorAction displays a TripAdvisor page
+*/
 SWIFT_CLASS_NAMED("TripAdvisorRateAction")
 @interface QKTripAdvisorAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The TwitchWatchAction plays a stream on Twitch
+*/
 SWIFT_CLASS_NAMED("TwitchWatchAction")
 @interface QKTwitchWatchAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The TwitterFollowAction class performs a user follow event on Twitter
+*/
 SWIFT_CLASS_NAMED("TwitterFollowAction")
 @interface QKTwitterFollowAction : QKAction
 @property (nonatomic, copy) NSString * _Nonnull name;
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nullable instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name OBJC_DESIGNATED_INITIALIZER;
 - (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
@@ -623,11 +743,13 @@ SWIFT_CLASS_NAMED("TwitterFollowAction")
 @end
 
 
+/**
+  The TwitterMessageAction class handles sending a message on Twitter
+*/
 SWIFT_CLASS_NAMED("TwitterMessageAction")
 @interface QKTwitterMessageAction : QKAction
 @property (nonatomic, copy) NSString * _Nonnull name;
 @property (nonatomic, copy) NSString * _Nonnull message;
-@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nullable data;
 - (nullable instancetype)initWithString:(NSString * _Nonnull)string SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithName:(NSString * _Nonnull)name message:(NSString * _Nonnull)message OBJC_DESIGNATED_INITIALIZER;
 - (void)performWithCompletion:(void (^ _Nonnull)(QKActionResult * _Nonnull))completion;
@@ -635,6 +757,9 @@ SWIFT_CLASS_NAMED("TwitterMessageAction")
 @end
 
 
+/**
+  The TwitterSearchAction handles a search query on Twitter
+*/
 SWIFT_CLASS_NAMED("TwitterSearchAction")
 @interface QKTwitterSearchAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull query;
@@ -642,6 +767,9 @@ SWIFT_CLASS_NAMED("TwitterSearchAction")
 @end
 
 
+/**
+  The TwitterTweetAction handles creating a tweet on Twitter
+*/
 SWIFT_CLASS_NAMED("TwitterTweetAction")
 @interface QKTwitterTweetAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull text;
@@ -670,12 +798,18 @@ SWIFT_CLASS_NAMED("TwitterTweetAction")
 
 
 
+/**
+  The VimeoWatchAction plays a video on Vimeo
+*/
 SWIFT_CLASS_NAMED("VimeoWatchAction")
 @interface QKVimeoWatchAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The VineWatchAction plays a Vine
+*/
 SWIFT_CLASS_NAMED("VineWatchAction")
 @interface QKVineWatchAction : QKUrlAction
 @property (nonatomic, copy) NSString * _Nonnull identifier;
@@ -683,12 +817,18 @@ SWIFT_CLASS_NAMED("VineWatchAction")
 @end
 
 
+/**
+  The Website Action loads a website
+*/
 SWIFT_CLASS_NAMED("WebsiteAction")
 @interface QKWebsiteAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
+/**
+  The YoutubeWatchAction plays a video on Youtube
+*/
 SWIFT_CLASS_NAMED("YoutubeWatchAction")
 @interface QKYoutubeWatchAction : QKUrlAction
 - (nonnull instancetype)initWithUrl:(NSURL * _Nullable)url OBJC_DESIGNATED_INITIALIZER;
