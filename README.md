@@ -25,8 +25,7 @@ Quikkly is the easiest way to implement smart scannables.
 ## Features
 
 - Scannable detector
-- Generating scannables with Quikkly actions
-- Generating offline scannables
+- Generating scannables
 - Custom actions
 - Written in Swift 3 with Objective-C support
 
