@@ -15,19 +15,17 @@ Quikkly is the easiest way to implement smart scannables.
   - [CocoaPods] (#cocoapods)
   - [Manual] (#manual)
 - [Usage](#usage)
-  - [Setup] (#setup)
   - [Objective-C Support] (#objective-c-support)
+  - [Setup] (#setup)
   - [Scanning](#scanning)
-  - [Processing Actions](#processing-actions)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample Apps] (#sample-apps)
+- [Sample Apps] (#sample-app)
 
 ## Features
 
 - Scannable detector
-- Generating scannables with Quikkly actions
-- Generating offline scannables
+- Generating scannables
 - Custom actions
 - Written in Swift 3 with Objective-C support
 
@@ -79,17 +77,21 @@ Note that bitcode has to be turned off for now. We're working on a solution to t
 
 ## Usage
 
+### Objective-C Support
+
+Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
+
 ### Setup
 
 In order to use our SDK there are a few pre-requisite steps required when setting up your project.
 
-1. Set the Quikkly API key in your AppDelegate. The Value for the key will be your App key obtained from Quikkly ([here](https://quikklycodes.com/developers/)).
+1. Set the Quikkly API key in your AppDelegate. The Value for the key will be your App key obtained from Quikkly ([here](https://quikklycodes.com/developers/)). The api key has to be valid, otherwise certain features of the SDK will not work.
 
 ```Swift
 func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         // Quikkly framework setup
-        Quikkly.apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        Quikkly.apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         
         return true
 }
@@ -97,45 +99,100 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 
 2. Some of our Quikkly actions use custom URIs to support deep linking and API calls to 3rd party services, through the `[UIApplication canOpenURL:]` mechanisms. Due to some changes in iOS 9, your `Info.plist` file should contain an `LSApplicationQueriesSchemes` key with `spotify`, `twitter`, `gplus` and `youtube` items.
 
-3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
+3. In iOS 10+ the NSCameraUsageDescription key in the `Info.plist` file has to be set, otherwise the app will crash when access to the camera is requested.
 
-### Objective-C Support
+4. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
 
-Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
+
+### Scannable Templates
+
+There are lots of different formats for both scannable detection and creation.
+By default the sdk provides a set of templates that will work without any further setup and a larger pool of available options can be found online on the [Developer Portal](https://developers.quikkly.io/).
+A blueprint file containing these supported templates can be added to the app bundle's assets and the file name needs to be specified in the AppDelegate:
+
+```Swift
+func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        // Quikkly framework setup
+        Quikkly.apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        Quikkly.blueprintFilename = "myBlueprintFilename"
+        
+        return true
+}
+```
 
 ### Scanning
 
-#### Scanner with default UI
-
-For a simple and hassle free integration a view controller handling the detection of Quikkly back-end based Scannables is provided.
-It's as simple as this.
-
-```Swift
-let scanViewController = ScanViewController()
-self.present(scanViewController, animated: true, completion: {})
-```
-
-The ScanViewController also handles the action processing.
-
 #### Scanner with Scan View camera feed
 
-For a more flexible implementation there is a ScanView class.
-It will notify it's ScanViewDelegate object about detected scannables.
+The ScanView class displays a camera feed and provides a delegate pattern to notify its parent view controller about detected scannables.
 
 ```Swift
 func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {   
-    // Handle detected scannable
+    // Handle detected scannables
     if let scannable = scannables.first {
+        //do something with the scannable
         self.statusLabel.text = "Scannable found: \(scannable.value)"
     }
 }
 ```
 
-Note that this does not automatically handle the action as well. The detected Scannable object needs to be passed to an ActionProcessor instance (explained below).
+The detected Scannable object can then be linked to and trigger any action based on its value.
+
+The ScanView's detector should be paused when it's off screen and it should resume when it's visible by using these methods:
+```Swift
+self.scanView.start()
+self.scanView.stop()
+```
+The camera feed won't be paused, only the detector.
+
+##### Camera permissions
+
+In order for the ScanView to function the user will have to accept the camera permission dialog.
+If permission is denied a default hint with a button linking to the app settings page will be displayed.
+
+The ScanViewDelegate has a method to notify its parent object about the result of a permission request.
+By returning false the default hint for users won't be displayed and it can be handled otherwise.
+
+```Swift
+import AVFoundation
+func scanViewDidRequestCamera(status: AVAuthorizationStatus) -> Bool {
+    if status == .denied {
+        // show user hint
+    } else {
+        // hide user hint
+    }
+    return false // hide default
+}
+```
+
+#### Scanner with default UI
+
+For a simple and integration a view controller with a camera feed and a neutral default UI is provided.
+The ScanViewController class has to be subclassed and its ScanView's delegate method overridden. 
+
+The way to handle scanning events is the same as with a ScanView camera feed. Here's an example:
+
+```Swift
+func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {   
+    // Handle detected scannables
+    if let scannable = scannables.first {
+        //execute action linked to the scannable's value property
+        self.performAction(forScannable: scannable)
+        //display activity indicator
+        self.showActivityIndicator()
+    }
+}
+```
+
+Note that it's meant to be used without NavigationController and shouldn't be pushed on the navigation stack but presented modally.
+
+To show and hide the activity indicator simply call ```self.showActivityIndicator()``` and ```self.hideActivityIndicator()```
+The status label can also be modified and its visibilty can be changed.
 
 #### Detection without UI
 
-The Scannable class has some static methods to detect scannables in a CGImage.
+The Scannable class also has some static methods to detect scannables in a CGImage.
 
 ```Swift
 Scannable.detect(inImage: cgImage) { (scannables) in
@@ -145,58 +202,19 @@ Scannable.detect(inImage: cgImage) { (scannables) in
 }
 ```
 
-### Processing Actions
-
-Since Scannables do not know about their linked action they have to be processed by an ActionProcessor.
-The action processor will then retrieve the action data from the Quikkly back-end.
-
-Simply add:
-```Swift
-let actionProcessor = ActionProcessor()
-
-self.actionProcessor.process(scannable: scannable)
-self.showActivityIndicatorView()
-```
-
-The ActionProcessorDelegate provides the option to respond to its lifecycle (for instance, to display/hide activity indicator views, or to handle the result of a performed action).
-
-```Swift
-func actionProcessor(_ actionProcessor: ActionProcessor, didProcessAction action: Action?, withResult result: ActionResult) {
-    self.hideActivityIndicatorView()
-}
-```
-
 ### Generating Scannables
 
-#### With actions via Quikkly back-end
-
-To create a scannable on the Quikkly back-end, an Action object has to be instantiated first.
-For instance:
-
-```Swift
-let action = WebsiteAction(withUrl: URL(string: "https://quikkly.io"))
-```
-
-Then it can be passed as a parameter of the initializer. The skin can be nil as it will then use the default skin provided by the Quikkly platform, or you can instantiate a Skin object. Please see [here](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for more details
-
-```Swift
-Scannable(withAction: action, skin: nil) { (success, scannable) in
-    if success {
-        //use scannable object
-    }
-}
-```
-
-#### Without Quikkly back-end
-
-Scannables can be generated for use on your own back-end. Instantiating them requires a value and a [Skin](http://docs.quikkly.io/ios/0.1.0/Classes/Scannable/Skin.html) for visual representation with a ScannableView (explained below).
+Scannables can be generated locally without any back-end integration. Instantiating requires a value, a template identifier and a Skin object for visual representation with a ScannableView (explained below).
 
 ```Swift
 let skin = ScannableSkin()
 //set the skin object's properties (colour hex codes, image url, etc)
 ...
-let scannable = Scannable(withValue: NSNumber(value: 42587309), skin: skin)
+let scannable = Scannable(withValue: 42587309, template: "template0002style1" skin: skin)
 ```
+
+If the template identifier is nil a default template will be used.
+Please keep in mind that certain templates may not support the full 64-bit Int range.
 
 ### Displaying Scannables
 
@@ -207,7 +225,6 @@ self.scannableView = ScannableView()
 self.scannableView.scannable = scannable
 ```
 
-## Sample Apps
+## Sample App
 
-For a number sample applications have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).
-We'll keep adding new ones.
+For a sample application have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).

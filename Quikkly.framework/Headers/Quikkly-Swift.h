@@ -550,7 +550,6 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 @protocol QKScanViewDelegate
 @optional
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
-- (void)scanView:(QKScanView * _Nonnull)scanView didDetectBarcode:(NSString * _Nonnull)barcode;
 /**
   Notifies about the result of the requested camera permission.
   \param success The image to scan for scannables
