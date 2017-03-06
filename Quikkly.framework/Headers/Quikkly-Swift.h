@@ -119,6 +119,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import UIKit;
 @import CoreGraphics;
+@import AVFoundation;
 @import WebKit;
 #endif
 
@@ -230,15 +231,6 @@ SWIFT_CLASS_NAMED("ActionProcessor")
 */
 - (BOOL)processWithScannable:(QKScannable * _Nonnull)scannable;
 /**
-  Processing a barcode to perform its Action stored on the Quikkly back-end.
-  \param barcode A String representation of a barcode
-
-
-  returns:
-  Whether processing was started. If false, the completion block will not be invoked.
-*/
-- (BOOL)processWithBarcode:(NSString * _Nonnull)barcode;
-/**
   Retrieves the Action object linked to a Scannable on the Quikkly back-end.
   \param scannable The scannable object to find related Actions for.
 
@@ -246,14 +238,6 @@ SWIFT_CLASS_NAMED("ActionProcessor")
 
 */
 - (void)actionForScannable:(QKScannable * _Nonnull)scannable completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
-/**
-  Retrieves the Action object linked to a barcode on the Quikkly back-end.
-  \param barcode The barcode to find related Actions for.
-
-  \param completion Returns a nullable action object.
-
-*/
-- (void)actionForBarcode:(NSString * _Nonnull)barcode completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
 - (BOOL)action:(QKAction * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
 - (void)action:(QKAction * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
 - (BOOL)action:(QKAction * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
@@ -541,16 +525,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) User * _Nullable user;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-
-/**
-  The ScanButton displays the SDK’s default scanner.
-*/
-SWIFT_CLASS_NAMED("ScanButton")
-@interface QKScanButton : UIButton
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
-@end
-
 @protocol QKScanViewDelegate;
 
 /**
@@ -559,10 +533,13 @@ SWIFT_CLASS_NAMED("ScanButton")
 SWIFT_CLASS_NAMED("ScanView")
 @interface QKScanView : UIView
 @property (nonatomic, weak) id <QKScanViewDelegate> _Nullable delegate;
+@property (nonatomic) CGRect frame;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)start;
 - (void)stop;
+- (IBAction)permissionsDeniedButtonPressed;
+- (void)layoutSubviews;
 @end
 
 
@@ -574,6 +551,15 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 @optional
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectBarcode:(NSString * _Nonnull)barcode;
+/**
+  Notifies about the result of the requested camera permission.
+  \param success The image to scan for scannables
+
+
+  returns:
+  whether the scanview should display a default hint for the user.
+*/
+- (BOOL)scanViewDidRequestCameraWithStatus:(AVAuthorizationStatus)status;
 @end
 
 
@@ -596,6 +582,7 @@ SWIFT_CLASS_NAMED("ScanViewController")
 - (IBAction)showActivityIndicator;
 - (IBAction)hideActivityIndicator;
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
+- (BOOL)scanViewDidRequestCameraWithStatus:(AVAuthorizationStatus)status;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
