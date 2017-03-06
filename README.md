@@ -20,7 +20,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample Apps] (#sample-apps)
+- [Sample Apps] (#sample-app)
 
 ## Features
 
