@@ -119,6 +119,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import Foundation;
 @import UIKit;
 @import CoreGraphics;
+@import AVFoundation;
+@import WebKit;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -146,6 +148,7 @@ SWIFT_CLASS_NAMED("Action")
 @interface QKAction : NSObject <QKActionResultViewControllerDelegate>
 @property (nonatomic, readonly) enum QKActionType type;
 @property (nonatomic, weak) id <QKActionDelegate> _Nullable delegate;
+@property (nonatomic, copy) NSString * _Nullable title;
 /**
   A key value pair representation of the action’s properties/data.
   In a custom action this computed property MUST be overridden to store the action data on the backend.
@@ -228,15 +231,6 @@ SWIFT_CLASS_NAMED("ActionProcessor")
 */
 - (BOOL)processWithScannable:(QKScannable * _Nonnull)scannable;
 /**
-  Processing a barcode to perform its Action stored on the Quikkly back-end.
-  \param barcode A String representation of a barcode
-
-
-  returns:
-  Whether processing was started. If false, the completion block will not be invoked.
-*/
-- (BOOL)processWithBarcode:(NSString * _Nonnull)barcode;
-/**
   Retrieves the Action object linked to a Scannable on the Quikkly back-end.
   \param scannable The scannable object to find related Actions for.
 
@@ -244,14 +238,6 @@ SWIFT_CLASS_NAMED("ActionProcessor")
 
 */
 - (void)actionForScannable:(QKScannable * _Nonnull)scannable completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
-/**
-  Retrieves the Action object linked to a barcode on the Quikkly back-end.
-  \param barcode The barcode to find related Actions for.
-
-  \param completion Returns a nullable action object.
-
-*/
-- (void)actionForBarcode:(NSString * _Nonnull)barcode completion:(void (^ _Nonnull)(QKAction * _Nullable))completion;
 - (BOOL)action:(QKAction * _Nonnull)action shouldPresentViewController:(UIViewController * _Nonnull)viewController;
 - (void)action:(QKAction * _Nonnull)action willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
 - (BOOL)action:(QKAction * _Nonnull)action shouldOpenURL:(NSURL * _Nonnull)url;
@@ -529,21 +515,14 @@ SWIFT_CLASS("_TtC7Quikkly7Quikkly")
 @interface Quikkly : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable apiKey;)
 + (NSString * _Nullable)apiKey;
-+ (void)setApiKey:(NSString * _Nullable)value;
++ (void)setApiKey:(NSString * _Nullable)newValue;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable blueprintFilename;)
++ (NSString * _Nullable)blueprintFilename;
++ (void)setBlueprintFilename:(NSString * _Nullable)value;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) User * _Nullable user;)
 + (User * _Nullable)user;
 + (void)setUser:(User * _Nullable)value;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-/**
-  The ScanButton displays the SDK’s default scanner.
-*/
-SWIFT_CLASS_NAMED("ScanButton")
-@interface QKScanButton : UIButton
-- (nonnull instancetype)initWithFrame:(CGRect)frame SWIFT_UNAVAILABLE;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @protocol QKScanViewDelegate;
@@ -554,10 +533,13 @@ SWIFT_CLASS_NAMED("ScanButton")
 SWIFT_CLASS_NAMED("ScanView")
 @interface QKScanView : UIView
 @property (nonatomic, weak) id <QKScanViewDelegate> _Nullable delegate;
+@property (nonatomic) CGRect frame;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)start;
 - (void)stop;
+- (IBAction)permissionsDeniedButtonPressed;
+- (void)layoutSubviews;
 @end
 
 
@@ -569,6 +551,15 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 @optional
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectBarcode:(NSString * _Nonnull)barcode;
+/**
+  Notifies about the result of the requested camera permission.
+  \param success The image to scan for scannables
+
+
+  returns:
+  whether the scanview should display a default hint for the user.
+*/
+- (BOOL)scanViewDidRequestCameraWithStatus:(AVAuthorizationStatus)status;
 @end
 
 
@@ -576,23 +567,22 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
   The ScanViewController class wraps a ScanView object and provides a default scanning experience.
 */
 SWIFT_CLASS_NAMED("ScanViewController")
-@interface QKScanViewController : UIViewController <QKScanViewDelegate, QKActionProcessorDelegate>
+@interface QKScanViewController : UIViewController <QKScanViewDelegate>
 @property (nonatomic, readonly) UIInterfaceOrientation preferredInterfaceOrientationForPresentation;
 @property (nonatomic, readonly) UIInterfaceOrientationMask supportedInterfaceOrientations;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (void)viewDidLayoutSubviews;
+- (IBAction)showActivityIndicator;
+- (IBAction)hideActivityIndicator;
 - (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
-- (void)actionProcessorWillStartProcessing:(QKActionProcessor * _Nonnull)actionProcessor;
-- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didProcessAction:(QKAction * _Nullable)action withResult:(QKActionResult * _Nonnull)result;
-- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor willPresentActionResultViewController:(UIViewController * _Nonnull)viewController;
-- (void)actionProcessor:(QKActionProcessor * _Nonnull)actionProcessor didDismissActionResultViewController:(UIViewController * _Nonnull)viewController;
+- (BOOL)scanViewDidRequestCameraWithStatus:(AVAuthorizationStatus)status;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
 
@@ -604,7 +594,8 @@ SWIFT_CLASS_NAMED("ScanViewController")
 */
 SWIFT_CLASS_NAMED("Scannable")
 @interface QKScannable : NSObject
-@property (nonatomic, readonly, strong) NSNumber * _Nonnull value;
+@property (nonatomic, readonly) uint64_t value;
+@property (nonatomic, copy, getter=template, setter=setTemplate:) NSString * _Nonnull template_;
 @property (nonatomic, strong) QKScannableSkin * _Nonnull skin;
 /**
   Asynchronous detection of scannables in an image.
@@ -632,10 +623,10 @@ SWIFT_CLASS_NAMED("Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithAction:(QKAction * _Nonnull)action skin:(QKScannableSkin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, QKScannable * _Nonnull))completion;
+- (nonnull instancetype)initWithAction:(QKAction * _Nonnull)action template:(NSString * _Nullable)template_ skin:(QKScannableSkin * _Nullable)skin completion:(void (^ _Nonnull)(BOOL, QKScannable * _Nonnull))completion;
 /**
   Generates a scannable based on an identifier and a custom skin object
-  \param value A numeric integer representation of the new Scannable object. The range of valid numbers is from 0 to 12 billion (12 * 10^9)
+  \param value A numeric integer representation of the new Scannable object. The range of valid numbers is depends on the tag design, but it’ll always be an unsigned integer and never higher than the uint64 limits
 
   \param skin The skin parameters applied to the new Scannable object
 
@@ -643,11 +634,11 @@ SWIFT_CLASS_NAMED("Scannable")
   returns:
   A new Scannable object
 */
-- (nonnull instancetype)initWithValue:(NSNumber * _Nonnull)value skin:(QKScannableSkin * _Nonnull)skin;
+- (nonnull instancetype)initWithValue:(uint64_t)value template:(NSString * _Nullable)template_ skin:(QKScannableSkin * _Nonnull)skin;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-enum QKScannableSkinLayout : int32_t;
+enum QKScannableSkinImageFit : uint32_t;
 
 /**
   The ScannableSkin class holds relevant data for the visual representation of a Scannable object.
@@ -656,37 +647,37 @@ SWIFT_CLASS_NAMED("ScannableSkin")
 @interface QKScannableSkin : NSObject
 @property (nonatomic, copy) NSString * _Nullable backgroundColor;
 @property (nonatomic, copy) NSString * _Nullable borderColor;
-@property (nonatomic, copy) NSString * _Nullable codeColor;
-@property (nonatomic, copy) NSString * _Nullable textColor;
-@property (nonatomic, copy) NSString * _Nullable text;
+@property (nonatomic, copy) NSString * _Nullable dotColor;
+@property (nonatomic, copy) NSString * _Nullable maskColor;
+@property (nonatomic, copy) NSString * _Nullable overlayColor;
 @property (nonatomic, copy) NSString * _Nullable imageUri;
-@property (nonatomic, strong) NSNumber * _Nullable imageWidth;
-@property (nonatomic, strong) NSNumber * _Nullable imageHeight;
-@property (nonatomic, strong) NSNumber * _Nullable imageScaleFactor;
-@property (nonatomic) enum QKScannableSkinLayout layout;
+@property (nonatomic) enum QKScannableSkinImageFit imageFit;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-- (void)objcSetViewBoxWithX:(CGFloat)x y:(CGFloat)y width:(CGFloat)width height:(CGFloat)height;
-- (void)objcSetShowTextWithShow:(BOOL)show;
 @end
 
-typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinLayout, "Layout") {
-  QKScannableSkinLayoutBorder = 3,
-  QKScannableSkinLayoutHorizontal = 1,
-  QKScannableSkinLayoutVertical = 2,
+typedef SWIFT_ENUM_NAMED(uint32_t, QKScannableSkinImageFit, "ImageFit") {
+  QKScannableSkinImageFitTemplateDefault = 0,
+  QKScannableSkinImageFitStretch = 1,
+  QKScannableSkinImageFitMeet = 2,
+  QKScannableSkinImageFitSlice = 3,
 };
 
+@class WKWebView;
+@class WKNavigation;
 @class UIWebView;
 
 /**
   The ScannableView class displays Scannable objects based on their skin property.
 */
 SWIFT_CLASS_NAMED("ScannableView")
-@interface QKScannableView : UIView <UIWebViewDelegate>
+@interface QKScannableView : UIView <WKNavigationDelegate, UIWebViewDelegate>
 @property (nonatomic, strong) QKScannable * _Nullable scannable;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithScannable:(QKScannable * _Nonnull)scannable;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
 - (void)reload;
+- (void)webView:(WKWebView * _Nonnull)webView didFinishNavigation:(WKNavigation * _Null_unspecified)navigation;
+- (void)webView:(WKWebView * _Nonnull)webView didFailNavigation:(WKNavigation * _Null_unspecified)navigation withError:(NSError * _Nonnull)error;
 - (void)webViewDidFinishLoad:(UIWebView * _Nonnull)webView;
 - (void)webView:(UIWebView * _Nonnull)webView didFailLoadWithError:(NSError * _Nonnull)error;
 - (void)layoutSubviews;
