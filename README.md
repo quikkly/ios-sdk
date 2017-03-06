@@ -99,7 +99,10 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 
 2. Some of our Quikkly actions use custom URIs to support deep linking and API calls to 3rd party services, through the `[UIApplication canOpenURL:]` mechanisms. Due to some changes in iOS 9, your `Info.plist` file should contain an `LSApplicationQueriesSchemes` key with `spotify`, `twitter`, `gplus` and `youtube` items.
 
-3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
+3. In iOS 10+ the NSCameraUsageDescription key in the `Info.plist` file has to be set, otherwise the app will crash when access to the camera is requested.
+
+4. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
+
 
 ### Scannable Templates
 
@@ -142,6 +145,26 @@ self.scanView.start()
 self.scanView.stop()
 ```
 The camera feed won't be paused, only the detector.
+
+##### Camera permissions
+
+In order for the ScanView to function the user will have to accept the camera permission dialog.
+If permission is denied a default hint with a button linking to the app settings page will be displayed.
+
+The ScanViewDelegate has a method to notify its parent object about the result of a permission request.
+By returning false the default hint for users won't be displayed and it can be handled otherwise.
+
+```Swift
+import AVFoundation
+func scanViewDidRequestCamera(status: AVAuthorizationStatus) -> Bool {
+    if status == .denied {
+        // show user hint
+    } else {
+        // hide user hint
+    }
+    return false // hide default
+}
+```
 
 #### Scanner with default UI
 
