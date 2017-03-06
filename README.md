@@ -20,7 +20,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample Apps] (#sample-apps)
+- [Sample Apps] (#sample-app)
 
 ## Features
 
@@ -225,7 +225,6 @@ self.scannableView = ScannableView()
 self.scannableView.scannable = scannable
 ```
 
-## Sample Apps
+## Sample App
 
-For a number sample applications have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).
-We'll keep adding new ones.
+For a sample application have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).
