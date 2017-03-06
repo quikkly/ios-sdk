@@ -2,13 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-### 3.1.0
-### Added
-- Support for Spotify OAuth API
-- Support for the new action for Spotify's 'Follow Artist' endpoint.
-- Support for the new action for Spotify's 'Follow Playlist' endpoint.
-- Support for the new action 'Buy on Amazon'
-- Enhanced Universal basket internal Webview
 
-### Changed
-- version number to 3.1.0
+### 1.0.1
+# Fixed:
+- Crash on app launch when user denies camera permission
+- Some layout issues on small screens
+
+# Added:
+- Default camera permission denied hint on ScanView
+- ScanViewDelegate function to override default 'permission denied' view with a custom one
+
+
+### 1.0.0
+Initial version of the Quikkly scannables SDK.
+It's the easiest way to get smart codes into your app. 
+- Generate scannables in a variety of shapes and patterns.
+- Detect scannables and link to any action.
+- Swift 3 or Objective-C
+- Integration is a piece of cake. And who doesn't like cake?
