@@ -26,9 +26,5 @@ class CustomScanViewController: ScanViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        
-    }
-    
 }
 
