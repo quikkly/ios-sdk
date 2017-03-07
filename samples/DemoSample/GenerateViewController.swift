@@ -39,7 +39,7 @@ class GenerateViewController: UIViewController {
         let skin = ScannableSkin()
         skin.backgroundColor = "#3299FF"
         skin.dotColor = "#FFFFFF"
-        skin.borderColor = "#FFFFFF"
+        skin.borderColor = "#444444"
         skin.imageUri = "https://s3-eu-west-1.amazonaws.com/docs.quikkly.io/img/1481647718.png"
         let scannable = Scannable(withValue: 123456789, template:nil, skin: skin)
         self.scannableView.scannable = scannable
@@ -55,7 +55,6 @@ class GenerateViewController: UIViewController {
         rect.origin.x = self.view.frame.size.width*0.5 - rect.size.width*0.5
         rect.origin.y = self.view.frame.size.height*0.5 - rect.size.height*0.5
         self.scannableView.frame = rect
-        self.scannableView.backgroundColor = UIColor(red: 0.01, green: 0.05, blue: 0.25, alpha: 1.0)
     }
 
 }

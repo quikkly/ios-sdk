@@ -10,7 +10,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Quikkly:
-    :commit: f37a4a7edf01a8af0fb9ded1f30e924ddad4fc50
+    :commit: 4337b02bea5f048c393a9aae4c339591966616f5
     :git: https://github.com/quikkly/ios-sdk.git
 
 SPEC CHECKSUMS:

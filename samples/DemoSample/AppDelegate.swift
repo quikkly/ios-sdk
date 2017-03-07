@@ -27,10 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         vc1.tabBarItem = UITabBarItem(title: "Generating", image: UIImage(named: "Image-TabBar-Generating"), tag: 1)
         tabVC.viewControllers = [vc0, vc1]
         
-        let view = UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
-        view.backgroundColor = .white
-        tabVC.view.addSubview(view)
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = tabVC
         self.window?.backgroundColor = .white
