@@ -511,7 +511,7 @@ SWIFT_CLASS_NAMED("PinterestViewAction")
 
 @class User;
 
-SWIFT_CLASS("_TtC7Quikkly7Quikkly")
+SWIFT_CLASS_NAMED("Quikkly")
 @interface Quikkly : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable apiKey;)
 + (NSString * _Nullable)apiKey;
