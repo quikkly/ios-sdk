@@ -14,6 +14,7 @@
 		DE783D5C1E6DAA640039AB10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE783D5B1E6DAA640039AB10 /* Assets.xcassets */; };
 		DE783D5F1E6DAA640039AB10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE783D5D1E6DAA640039AB10 /* LaunchScreen.storyboard */; };
 		DE783D651E6DD1320039AB10 /* GenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE783D641E6DD1320039AB10 /* GenerateViewController.swift */; };
+		DEE4911B1E76F8F800680198 /* ScanContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE4911A1E76F8F800680198 /* ScanContextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		DE783D5E1E6DAA640039AB10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE783D601E6DAA640039AB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE783D641E6DD1320039AB10 /* GenerateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateViewController.swift; sourceTree = "<group>"; };
+		DEE4911A1E76F8F800680198 /* ScanContextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanContextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				DE783D541E6DAA640039AB10 /* AppDelegate.swift */,
+				DEE4911A1E76F8F800680198 /* ScanContextViewController.swift */,
 				DE783D561E6DAA640039AB10 /* CustomScanViewController.swift */,
 				DE783D641E6DD1320039AB10 /* GenerateViewController.swift */,
 				DE783D581E6DAA640039AB10 /* Main.storyboard */,
@@ -224,6 +227,7 @@
 				DE783D571E6DAA640039AB10 /* CustomScanViewController.swift in Sources */,
 				DE783D651E6DD1320039AB10 /* GenerateViewController.swift in Sources */,
 				DE783D551E6DAA640039AB10 /* AppDelegate.swift in Sources */,
+				DEE4911B1E76F8F800680198 /* ScanContextViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +354,7 @@
 				DEVELOPMENT_TEAM = 3P3V8BC7U6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DemoSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quikkly.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -366,7 +370,7 @@
 				DEVELOPMENT_TEAM = 3P3V8BC7U6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DemoSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quikkly.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

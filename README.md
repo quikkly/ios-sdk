@@ -12,21 +12,22 @@ Quikkly is the easiest way to implement smart scannables.
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-  - [CocoaPods] (#cocoapods)
-  - [Manual] (#manual)
+  - [CocoaPods](#cocoapods)
+  - [Manual](#manual)
 - [Usage](#usage)
-  - [Objective-C Support] (#objective-c-support)
-  - [Setup] (#setup)
+  - [Objective-C Support](#objective-c-support)
+  - [Setup](#setup)
+  - [Scannable Templates](#scannable-templates)
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample Apps] (#sample-app)
+- [Sample App](#sample-app)
 
 ## Features
 
-- Scannable detector
-- Generating scannables
-- Custom actions
+- Scanning with camera
+- Generating scannable codes
+- Linking data to scannables
 - Written in Swift 3 with Objective-C support
 
 ## Requirements
@@ -78,6 +79,8 @@ Download and add `Quikkly.framework` as an embedded binary to your project.
 ### Objective-C Support
 
 Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
+
+Add ```@import Quikkly;``` to the Objective C file.
 
 ### Setup
 
@@ -167,7 +170,7 @@ func scanViewDidRequestCamera(status: AVAuthorizationStatus) -> Bool {
 #### Scanner with default UI
 
 For a simple and integration a view controller with a camera feed and a neutral default UI is provided.
-The ScanViewController class has to be subclassed and its ScanView's delegate method overridden. 
+The ScanViewController class has to be subclassed and its ScanView's delegate method implemented. 
 
 The way to handle scanning events is the same as with a ScanView camera feed. Here's an example:
 

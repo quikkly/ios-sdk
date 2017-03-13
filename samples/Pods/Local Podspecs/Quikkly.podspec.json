@@ -1,6 +1,6 @@
 {
   "name": "Quikkly",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "http://www.quikkly.io",
   "license": {
     "type": "Commercial",
@@ -9,7 +9,7 @@
   "authors": {
     "Quikkly Ltd": "gregg@quikklymobile.com"
   },
-  "summary": "The Quikkly iOS SDK",
+  "summary": "The Quikkly Smart Scannable SDK for iOS",
   "platforms": {
     "ios": "8.0"
   },
@@ -17,18 +17,5 @@
     "http": "https://github.com/quikkly/ios-sdk/Quikkly.framework"
   },
   "vendored_frameworks": "Quikkly.framework",
-  "frameworks": [
-    "UIKit",
-    "WebKit",
-    "MessageUI",
-    "QuartzCore",
-    "MediaPlayer",
-    "AddressBookUI",
-    "AddressBook",
-    "EventKitUI",
-    "EventKit",
-    "CoreLocation",
-    "CoreBluetooth"
-  ],
   "requires_arc": true
 }
