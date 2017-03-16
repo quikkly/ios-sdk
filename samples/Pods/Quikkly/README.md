@@ -71,9 +71,7 @@ Note that bitcode has to be turned off for now. We're working on a solution to t
 -->
 ### Manual
 
-1. Download and add `Quikkly.framework` to your project.
-
-2. Link the project with `libc++.dylib`, `CoreLocation.framework`, `CoreMedia.framework`, `AudioToolbox.framework`, `AVFoundation.framework` and `QuartzCore.framework`
+Download and add `Quikkly.framework` as an embedded binary to your project.
 
 ## Usage
 

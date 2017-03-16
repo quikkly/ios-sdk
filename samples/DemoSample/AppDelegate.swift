@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Quikkly.apiKey = "kCPeTZnGsmo90ZAu9q2rlXB94EAbUC2fvK7Ur95tLHsKFIYhYdt8Qrl80iVy" //Insert your api key here
         
         let tabVC = UITabBarController()
-        let vc0 = CustomScanViewController()
+        let vc0 = ScanContextViewController()
         vc0.tabBarItem = UITabBarItem(title: "Scanning", image: UIImage(named: "Image-TabBar-Scanning"), tag: 0)
         let vc1 = UINavigationController(rootViewController: GenerateViewController())
         vc1.tabBarItem = UITabBarItem(title: "Generating", image: UIImage(named: "Image-TabBar-Generating"), tag: 1)
