@@ -14,7 +14,8 @@ class ScanContextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 45))
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: 100, height: 45)
         button.center = self.view.center
         button.setTitle("Scan", for: .normal)
         button.addTarget(self, action: #selector(presentScanViewController), for: .touchUpInside)
