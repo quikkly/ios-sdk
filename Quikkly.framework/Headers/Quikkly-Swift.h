@@ -512,7 +512,7 @@ SWIFT_CLASS_NAMED("PinterestViewAction")
 @class User;
 
 SWIFT_CLASS_NAMED("Quikkly")
-@interface Quikkly : NSObject
+@interface QKQuikkly : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable apiKey;)
 + (NSString * _Nullable)apiKey;
 + (void)setApiKey:(NSString * _Nullable)newValue;
@@ -565,8 +565,8 @@ SWIFT_PROTOCOL_NAMED("ScanViewDelegate")
 /**
   The ScanViewController class wraps a ScanView object and provides a default scanning experience.
 */
-SWIFT_CLASS_NAMED("ScanViewController")
-@interface QKScanViewController : UIViewController <QKScanViewDelegate>
+SWIFT_CLASS("_TtC7Quikkly18ScanViewController")
+@interface ScanViewController : UIViewController <QKScanViewDelegate>
 @property (nonatomic, readonly) UIInterfaceOrientation preferredInterfaceOrientationForPresentation;
 @property (nonatomic, readonly) UIInterfaceOrientationMask supportedInterfaceOrientations;
 @property (nonatomic, readonly) UIStatusBarStyle preferredStatusBarStyle;
@@ -580,7 +580,6 @@ SWIFT_CLASS_NAMED("ScanViewController")
 - (void)viewDidLayoutSubviews;
 - (IBAction)showActivityIndicator;
 - (IBAction)hideActivityIndicator;
-- (void)scanView:(QKScanView * _Nonnull)scanView didDetectScannables:(NSArray<QKScannable *> * _Nonnull)scannables;
 - (BOOL)scanViewDidRequestCameraWithStatus:(AVAuthorizationStatus)status;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end

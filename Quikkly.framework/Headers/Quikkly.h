@@ -15,3 +15,5 @@ FOUNDATION_EXPORT double QuikklyVersionNumber;
 FOUNDATION_EXPORT const unsigned char QuikklyVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <QuikklySDK/PublicHeader.h>
+
+#import <Quikkly/QKScanViewController.h>
