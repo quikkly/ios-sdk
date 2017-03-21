@@ -79,6 +79,8 @@ Download and add `Quikkly.framework` as an embedded binary to your project.
 
 Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
 
+Add ```@import Quikkly;``` to the Objective C file.
+
 ### Setup
 
 In order to use our SDK there are a few pre-requisite steps required when setting up your project.
