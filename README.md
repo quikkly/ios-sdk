@@ -21,7 +21,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample App] (#sample-app)
+- [Sample App](#sample-app)
 
 ## Features
 
@@ -170,7 +170,7 @@ func scanViewDidRequestCamera(status: AVAuthorizationStatus) -> Bool {
 #### Scanner with default UI
 
 For a simple and integration a view controller with a camera feed and a neutral default UI is provided.
-The ScanViewController class has to be subclassed and its ScanView's delegate method overridden. 
+The ScanViewController class has to be subclassed and its ScanView's delegate method implemented. 
 
 The way to handle scanning events is the same as with a ScanView camera feed. Here's an example:
 
