@@ -12,21 +12,22 @@ Quikkly is the easiest way to implement smart scannables.
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-  - [CocoaPods] (#cocoapods)
-  - [Manual] (#manual)
+  - [CocoaPods](#cocoapods)
+  - [Manual](#manual)
 - [Usage](#usage)
-  - [Objective-C Support] (#objective-c-support)
-  - [Setup] (#setup)
+  - [Objective-C Support](#objective-c-support)
+  - [Setup](#setup)
+  - [Scannable Templates](#scannable-templates)
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
-- [Sample Apps] (#sample-app)
+- [Sample App] (#sample-app)
 
 ## Features
 
-- Scannable detector
-- Generating scannables
-- Custom actions
+- Scanning with camera
+- Generating scannable codes
+- Linking data to scannables
 - Written in Swift 3 with Objective-C support
 
 ## Requirements
