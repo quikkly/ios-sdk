@@ -1,0 +1,164 @@
+#pragma once
+
+/*
+
+Security notes
+--------------
+The input image can be user-provided.
+As long as its width, height, format, bytes_per_row are correctly set, no
+input image should crash the core lib.
+
+The tag generation input data can be user-provided.
+If the data does not fit the requested tag layout, an error will be returned.
+
+
+Threading notes
+---------------
+The core lib can be used in parallel from multiple threads,
+but each QCPipeline object, and related objects may be used only from a single thread.
+
+If you want to process multiple frames in parallel, build multiple pipelines.
+If you want to process scan results in a different thread from the image processing,
+make your own copy of the result data before feeding the next frame into the pipeline.
+
+
+Why extern "C"?
+---------------
+The public interface of the core lib must not use any C++ features, plain C only.
+Plain C is easy to interface with Python, Go and all other languages.
+C++ is difficult to write bindings for outside of ObjectiveC and JNI (which actually wraps everything in plain C functions for Java).
+So no struct constructors (use init functions instead), no std::string or std::vector.
+Internals of the core can and do use C++.
+
+
+Refactoring data structures
+---------------------------
+If these structs are changed, make sure to add padding to keep "bigger" fields aligned to their size.
+1-byte aligned to 1-byte, 4-byte aligned to 4-byte, 8-byte aligned to 8-byte, and total struct size to 8 bytes.
+Otherwise Python bindings get messy, and floating point access crashes with a very confusing error on mobile ARM processors.
+
+
+*/
+
+
+#include <stddef.h>
+#include <stdint.h>
+
+#define QC_EXPORT __attribute__((visibility("default")))
+
+
+#define QC_VERSION_STR "1.3.0"
+
+
+// Greyscale, 1 byte per pixel. Array order is: row, column.
+// For NV21, just use GREY_UINT8, its grayscale channel comes first in memory, and the color channels will be ignored.
+#define QC_IMAGE_FORMAT_GREY_UINT8 0
+#define QC_IMAGE_FORMAT_BGRA_UINT32 1
+#define QC_IMAGE_FORMAT_RGBA_UINT32 2
+
+#define QC_OK 0
+
+
+#define QC_IMAGE_FIT_DEFAULT 0  // Use template default
+#define QC_IMAGE_FIT_STRETCH 1  // Stretch in both dimensions
+#define QC_IMAGE_FIT_MEET    2  // Fit and center inside the viewbox, keep proportions. May leave empty space around image.
+#define QC_IMAGE_FIT_SLICE   3  // Fit and center to fill entire viewbox, keep proportions. May crop edges of the image.
+
+
+typedef void _QCPipeline;
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+// Part of a successful scan result.
+struct _QCTag {
+    uint64_t data;     // Tag ID decoded from the image.
+    char * type;       // Name of the final step in the processing pipeline that produced the tag.
+                       // Lifetime is managed by the core lib - do not access after calling qc_release_result() on this result, or qc_release_pipeline().
+    float corners[8];  // Corners of the box in [0...1] coordinates relative to image size. May be all zeros if not provided by the algorithm. Pairs of (x, y) in order TL, TR, BR, BL. 0 is top/left, 1 is bottom/right.
+    float area;        // Area of the tag roughly as a proportion of the image size. May be zero if not provided by the algorithm.
+    float _pad;        // Keep structure size a multiple of 8 bytes.
+} __attribute__ ((aligned(8)));
+typedef struct _QCTag QCTag;
+
+
+// QCScanResult is allocated by qc_alloc_extract_result().
+// You can access the data until a matching qc_release_result() call.
+struct _QCScanResult {
+    QCTag * tags;
+    int32_t num_tags;
+    int32_t _pad;
+} __attribute__ ((aligned(8)));
+typedef struct _QCScanResult QCScanResult;
+
+
+// QCSkin is used to provide a visual theme to the SVG tag generator.
+// Allocate one yourself, and fill it with appropriate values.
+// The values are inserted directly into the SVG template XML without escaping.
+// If the data comes from the user, ensure that it is validated for correctness before passing it into the scanner.
+struct _QCSkin {
+    const char * border_color;      // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
+    const char * background_color;  // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
+    const char * mask_color;        // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
+    const char * overlay_color;     // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
+    const char * data_color;        // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
+    const char * image_url;         // Image URL or embedded raw data "URL" like "data:image/png;base64,..."
+    const char * logo_url;          // Logo URL or embedded raw data "URL" like "data:image/png;base64,..."
+    uint32_t     image_fit;         // One of the QC_IMAGE_FIT constants.
+    uint32_t     logo_fit;          // One of the QC_IMAGE_FIT constants.
+} __attribute__ ((aligned(8)));
+typedef struct _QCSkin QCSkin;
+
+
+// Get version string.
+const char * qc_version_str();
+// Parse version string.
+void qc_version(int * out_major, int * out_minor, int * out_patch);
+
+
+// Returns 1 if this is a QC_DEBUG-enabled build.
+uint8_t qc_debug();
+
+// Checks that all libraries have been linked correctly, and returns library version on success.
+// Returns NULL for errors.
+const char * qc_check_linking();
+
+// Build a scanning pipeline out of the specification of stages and parameters in the blueprint.
+_QCPipeline* qc_alloc_build_pipeline(const char* blueprint);
+void qc_release_pipeline(_QCPipeline* pipeline);
+
+
+// Returns 0 on success (even if no tag was found), other numbers based on OpenCV exception error codes.
+int32_t qc_process_frame(
+    _QCPipeline* pipeline,
+    const uint8_t* const input,               // Bytes for the input image.
+    int32_t format,                           // One of the format defines.
+    int32_t width,                            // Height of the input image in pixels.
+    int32_t height,                           // Width of the input image in pixels.
+    int32_t bytes_per_row                     // Usually width for GREY_UINT8, and width*4 for XXXA_UINT32. May be larger if image rows have padding in memory.
+                                              // Pass -1 to have it automatically computed from width * format.
+);
+
+// Allocates a new QCScanResult, and fills it with data from the last processed frame from the pipeline.
+QCScanResult* qc_alloc_extract_result(const _QCPipeline* const pipeline);
+void qc_release_result(QCScanResult * result);
+
+
+// Generate new tags.
+void qc_init_default_skin(QCSkin * skin);
+uint8_t qc_template_exists(const _QCPipeline* const pipeline, const char * type);
+uint64_t qc_max_data_value(const _QCPipeline* const pipeline, const char * type);
+char* qc_alloc_generate_svg(const _QCPipeline* const pipeline, const char * type, uint64_t data, const QCSkin * skin);
+void qc_release_svg(char* svg);
+
+
+int32_t qc_num_debug_images(const _QCPipeline* const pipeline, const char * type);
+uint8_t * qc_access_debug_image(const _QCPipeline* const pipeline, const char * type, int32_t image_idx, int32_t * out_format, int32_t * out_width, int32_t * out_height);
+
+
+#ifdef __cplusplus
+}  // extern "C"
+#endif
