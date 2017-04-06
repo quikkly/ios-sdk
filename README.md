@@ -21,6 +21,7 @@ Quikkly is the easiest way to implement smart scannables.
   - [Scanning](#scanning)
   - [Generating Scannables](#generating-scannables)
   - [Displaying Scannables](#displaying-scannables)
+  - [Mapped Data](#mapped-data)
 - [Sample App](#sample-app)
 
 ## Features
@@ -98,11 +99,11 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 }
 ```
 
-2. Some of our Quikkly actions use custom URIs to support deep linking and API calls to 3rd party services, through the `[UIApplication canOpenURL:]` mechanisms. Due to some changes in iOS 9, your `Info.plist` file should contain an `LSApplicationQueriesSchemes` key with `spotify`, `twitter`, `gplus` and `youtube` items.
+2. In iOS 10+ the NSCameraUsageDescription key in the `Info.plist` file has to be set, otherwise the app will crash when access to the camera is requested.
 
-3. In iOS 10+ the NSCameraUsageDescription key in the `Info.plist` file has to be set, otherwise the app will crash when access to the camera is requested.
+3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
 
-4. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
+This is not a universal framework. Simulator won't work, so make sure the scheme is set to a device, otherwise Swift classes aren't even available
 
 
 ### Scannable Templates
@@ -224,6 +225,36 @@ Simply set the scannable property of a ScannableView instance.
 ```Swift
 self.scannableView = ScannableView()
 self.scannableView.scannable = scannable
+```
+
+### Mapped Data
+
+The Quikkly back-end can be used to map scannables to data.
+
+For instantiation the Scannable class provides an initialiser.
+
+```Swift
+let dict:[String:Any] = ["actionId":1,
+                       "actionData":"This string could be displayed when the scannable gets detected"]
+Scannable(withMappedData: dict, template: nil, skin: nil, completion: { (success, scannable) in
+    if success {
+        //handle successfully created scannable
+    } else {
+        //handle failure
+    }
+})
+```
+
+This is how mapped data is queried for a scannable object:
+
+```Swift
+scannable.getMappedData({ (data) in
+    if let mappedData = data {
+        //use data to perform action
+    } else {
+        //no mapped data available for this scannable
+    }
+})
 ```
 
 ## Sample App
