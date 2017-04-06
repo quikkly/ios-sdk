@@ -103,7 +103,7 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
 
 3. Make sure bitcode is turned off in your target's build settings. Unfortunately we're currently unable to offer bitcode support. However we're working hard to make it available in the future.
 
-This is not a universal framework. Simulator won't work, so make sure the scheme is set to a device, otherwise Swift classes aren't even available
+This is not a universal framework. Simulator won't work, so make sure a device is selected, otherwise Swift classes aren't even available
 
 
 ### Scannable Templates
