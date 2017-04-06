@@ -1,5 +1,5 @@
 PODS:
-  - Quikkly (1.0.1)
+  - Quikkly (1.1.0)
 
 DEPENDENCIES:
   - Quikkly (from `https://github.com/quikkly/ios-sdk.git`)
@@ -10,11 +10,11 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Quikkly:
-    :commit: 9512504e96d7d0f297c376344e070a7fcb529798
+    :commit: 0c51f8e91e73c523a5fc5a7215c9de78a661f089
     :git: https://github.com/quikkly/ios-sdk.git
 
 SPEC CHECKSUMS:
-  Quikkly: d8cfbd8f4467585c588a0a07f392a655a0c523d6
+  Quikkly: c7b344918ab479f4d9f5d2038271e0721eab8938
 
 PODFILE CHECKSUM: 303c99c7bba1b3d5393b201de25efe9ac2862025
 
