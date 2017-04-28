@@ -108,7 +108,7 @@ func application(_ application: UIApplication, willFinishLaunchingWithOptions la
         // Quikkly framework setup
         Quikkly.apiKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         Quikkly.blueprintFilename = "myBlueprintFilename"
-        
+
         return true
 }
 ```
@@ -161,7 +161,7 @@ func scanViewDidRequestCamera(status: AVAuthorizationStatus) -> Bool {
 #### Scanner with default UI
 
 For a simple and integration a view controller with a camera feed and a neutral default UI is provided.
-The ScanViewController class has to be subclassed and its ScanView's delegate method implemented. 
+The ScanViewController class has to be subclassed and its ScanView's delegate method implemented.
 
 The way to handle scanning events is the same as with a ScanView camera feed. Here's an example:
 
@@ -249,4 +249,4 @@ scannable.getMappedData({ (data) in
 
 ## Sample App
 
-For a sample application have a look at [this] (https://github.com/quikkly/ios-sdk/tree/master/samples).
+For a sample application have a look at [this](https://github.com/quikkly/ios-sdk/tree/master/samples).
