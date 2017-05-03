@@ -12,7 +12,7 @@ Quikkly is the easiest way to implement smart scannables.
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-  <!--- [CocoaPods](#cocoapods)-->
+  - [CocoaPods](#cocoapods)
   - [Manual](#manual)
 - [Usage](#usage)
   - [Objective-C Support](#objective-c-support)
@@ -42,7 +42,7 @@ In order to use this SDK, a Quikkly app key is required. Visit [here](https://de
 
 Currently bitcode isn't supported, so it has to be turned off in the target's ```Build Settings``` > ```Build Options``` > ```Enable Bitcode```.
 
-<!--### CocoaPods
+### CocoaPods
 
 To use the SDK with CocoaPods add the following lines to your podfile's target:
 
