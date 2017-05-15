@@ -47,7 +47,7 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_EXPORT __attribute__((visibility("default")))
 
 
-#define QC_VERSION_STR "1.3.0"
+#define QC_VERSION_STR "1.7.0"
 
 
 // Greyscale, 1 byte per pixel. Array order is: row, column.
@@ -63,6 +63,16 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_IMAGE_FIT_STRETCH 1  // Stretch in both dimensions
 #define QC_IMAGE_FIT_MEET    2  // Fit and center inside the viewbox, keep proportions. May leave empty space around image.
 #define QC_IMAGE_FIT_SLICE   3  // Fit and center to fill entire viewbox, keep proportions. May crop edges of the image.
+
+
+// Values for join parameter in skin. Can be added (= bitwise ORed) together.
+#define QC_JOIN_DEFAULT       -1  // Template default join.
+#define QC_JOIN_NONE           0  // No join, independent dots.
+#define QC_JOIN_HORIZONTAL     1  // Horizontal, or along the circles for circular tags.
+#define QC_JOIN_VERTICAL       2
+#define QC_JOIN_DIAGONAL_RIGHT 4  // diagonal BL-TR: /.
+#define QC_JOIN_DIAGONAL_LEFT  8  // diagonal BR-TL: \.
+#define QC_JOIN_MAX           16  // Sum of all join constants, do not use.
 
 
 typedef void _QCPipeline;
@@ -107,8 +117,10 @@ struct _QCSkin {
     const char * data_color;        // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
     const char * image_url;         // Image URL or embedded raw data "URL" like "data:image/png;base64,..."
     const char * logo_url;          // Logo URL or embedded raw data "URL" like "data:image/png;base64,..."
-    uint32_t     image_fit;         // One of the QC_IMAGE_FIT constants.
-    uint32_t     logo_fit;          // One of the QC_IMAGE_FIT constants.
+    int32_t     image_fit;         // One of the QC_IMAGE_FIT constants.
+    int32_t     logo_fit;          // One of the QC_IMAGE_FIT constants.
+    int32_t     join;              // Sum of QC_JOIN constants, or -1 for "template default".
+    int32_t     _pad;
 } __attribute__ ((aligned(8)));
 typedef struct _QCSkin QCSkin;
 
@@ -130,7 +142,6 @@ const char * qc_check_linking();
 _QCPipeline* qc_alloc_build_pipeline(const char* blueprint);
 void qc_release_pipeline(_QCPipeline* pipeline);
 
-
 // Returns 0 on success (even if no tag was found), other numbers based on OpenCV exception error codes.
 int32_t qc_process_frame(
     _QCPipeline* pipeline,
@@ -146,7 +157,6 @@ int32_t qc_process_frame(
 QCScanResult* qc_alloc_extract_result(const _QCPipeline* const pipeline);
 void qc_release_result(QCScanResult * result);
 
-
 // Generate new tags.
 void qc_init_default_skin(QCSkin * skin);
 uint8_t qc_template_exists(const _QCPipeline* const pipeline, const char * type);
@@ -154,9 +164,10 @@ uint64_t qc_max_data_value(const _QCPipeline* const pipeline, const char * type)
 char* qc_alloc_generate_svg(const _QCPipeline* const pipeline, const char * type, uint64_t data, const QCSkin * skin);
 void qc_release_svg(char* svg);
 
-
+// Debug image calls are available only if the library is compiled with QC_DEBUG enabled.
 int32_t qc_num_debug_images(const _QCPipeline* const pipeline, const char * type);
 uint8_t * qc_access_debug_image(const _QCPipeline* const pipeline, const char * type, int32_t image_idx, int32_t * out_format, int32_t * out_width, int32_t * out_height);
+double qc_access_debug_seconds(const _QCPipeline* const pipeline, const char * step_method);
 
 
 #ifdef __cplusplus

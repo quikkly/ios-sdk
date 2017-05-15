@@ -139,6 +139,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import WebKit;
 #endif
 
+#import <Quikkly/Quikkly.h>
+
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
 @class User;
@@ -262,7 +264,7 @@ SWIFT_CLASS_NAMED("Scannable")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-enum QKScannableSkinImageFit : uint32_t;
+enum QKScannableSkinImageFit : int32_t;
 
 /// The ScannableSkin class holds relevant data for the visual representation of a Scannable object.
 SWIFT_CLASS_NAMED("ScannableSkin")
@@ -276,10 +278,11 @@ SWIFT_CLASS_NAMED("ScannableSkin")
 @property (nonatomic) enum QKScannableSkinImageFit imageFit;
 @property (nonatomic, copy) NSString * _Nullable logoUri;
 @property (nonatomic) enum QKScannableSkinImageFit logoFit;
+@property (nonatomic) QKScannableSkinJoinOption joinOptions;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-typedef SWIFT_ENUM_NAMED(uint32_t, QKScannableSkinImageFit, "ImageFit") {
+typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinImageFit, "ImageFit") {
   QKScannableSkinImageFitTemplateDefault = 0,
   QKScannableSkinImageFitStretch = 1,
   QKScannableSkinImageFitMeet = 2,
