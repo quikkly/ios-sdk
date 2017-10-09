@@ -34,7 +34,7 @@ Quikkly is the easiest way to implement smart scannables.
 ## Requirements
 
 - iOS 8.0+
-- Swift 3.1 or Objective-C
+- Swift 3.2+ or Objective-C
 
 ## Installation
 
