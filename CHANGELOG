@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # Fixed:
 - Xcode 9 support.
 
+### 1.2.0
+# Added:
+- New templates
+- Join parameter options in skin object (bitmasks)
+
 ### 1.1.1
 # Changed:
 - ScanView now has a cooldown after detecting a scannable.

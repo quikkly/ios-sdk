@@ -71,7 +71,7 @@ Download and add `Quikkly.framework` as an embedded binary to your project.
 
 Objective C classes are using the QK prefix. For instance, Scannable becomes QKScannable.
 
-Add ```@import Quikkly;``` to the Objective C file.
+Add ```@import Quikkly;``` to the Objective C file and set the `Always Embed Swift Standard Libraries` flag in `Build Settings` > `Build Options` to `Yes`.
 
 ### Setup
 
