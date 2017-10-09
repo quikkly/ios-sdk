@@ -12,4 +12,5 @@ framework module Quikkly {
 
 module Quikkly.Swift {
     header "Quikkly-Swift.h"
+    requires objc
 }
