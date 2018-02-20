@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### 3.0.0
+
+# Added:
+- Support for multiple dot colors
+
+# Changed:
+- Updated OpenCV (3.4)
+- Updated crypto modules
+- Custom Blueprints now loadable via parameter
+
+# Fixed:
+- Much better performance in low-contrast situations
+
 ### 1.2.2
 # Added:
 - Swift 4 support

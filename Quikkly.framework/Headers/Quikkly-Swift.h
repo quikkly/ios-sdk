@@ -280,6 +280,8 @@ SWIFT_CLASS_NAMED("Scannable")
 @property (nonatomic, readonly) uint64_t value;
 @property (nonatomic, copy, getter=template, setter=setTemplate:) NSString * _Nonnull template_;
 @property (nonatomic, strong) QKScannableSkin * _Nonnull skin;
+/// An SVG representation of the scannable object
+@property (nonatomic, readonly, copy) NSString * _Nullable svgString;
 /// Retrieves data linked to the scannable on the Quikkly back-end
 /// \param completion contains a dictionary of the linked data or nil if not available
 ///
@@ -329,7 +331,6 @@ SWIFT_CLASS_NAMED("ScannableSkin")
 @interface QKScannableSkin : NSObject
 @property (nonatomic, copy) NSString * _Nullable backgroundColor;
 @property (nonatomic, copy) NSString * _Nullable borderColor;
-@property (nonatomic, copy) NSString * _Nullable dotColor;
 @property (nonatomic, copy) NSString * _Nullable maskColor;
 @property (nonatomic, copy) NSString * _Nullable overlayColor;
 @property (nonatomic, copy) NSString * _Nullable imageUri;
@@ -347,6 +348,7 @@ typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinImageFit, "ImageFit") {
   QKScannableSkinImageFitSlice = 3,
 };
 
+@protocol QKScannableViewDelegate;
 @class WKWebView;
 @class WKNavigation;
 @class UIWebView;
@@ -354,6 +356,7 @@ typedef SWIFT_ENUM_NAMED(int32_t, QKScannableSkinImageFit, "ImageFit") {
 /// The ScannableView class displays Scannable objects based on their skin property.
 SWIFT_CLASS_NAMED("ScannableView")
 @interface QKScannableView : UIView <UIWebViewDelegate, WKNavigationDelegate>
+@property (nonatomic, weak) id <QKScannableViewDelegate> _Nullable delegate;
 @property (nonatomic, strong) QKScannable * _Nullable scannable;
 - (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithScannable:(QKScannable * _Nonnull)scannable;
@@ -364,6 +367,15 @@ SWIFT_CLASS_NAMED("ScannableView")
 - (void)webViewDidFinishLoad:(UIWebView * _Nonnull)webView;
 - (void)webView:(UIWebView * _Nonnull)webView didFailLoadWithError:(NSError * _Nonnull)error;
 - (void)layoutSubviews;
+@end
+
+
+/// The ScannableView class displays Scannable objects based on their skin property.
+SWIFT_PROTOCOL_NAMED("ScannableViewDelegate")
+@protocol QKScannableViewDelegate
+@optional
+- (void)scannableViewWillStartLoading:(QKScannableView * _Nonnull)scannableView;
+- (void)scannableView:(QKScannableView * _Nonnull)scannableView didFinishLoading:(BOOL)success;
 @end
 
 

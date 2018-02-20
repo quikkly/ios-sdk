@@ -47,7 +47,7 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_EXPORT __attribute__((visibility("default")))
 
 
-#define QC_VERSION_STR "1.7.0"
+#define QC_VERSION_STR "3.0.4"
 
 
 // Greyscale, 1 byte per pixel. Array order is: row, column.
@@ -55,6 +55,7 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_IMAGE_FORMAT_GREY_UINT8 0
 #define QC_IMAGE_FORMAT_BGRA_UINT32 1
 #define QC_IMAGE_FORMAT_RGBA_UINT32 2
+#define QC_IMAGE_FORMAT_NV21_UINT8 3  // Input byte buffer must be 1.5 * height rows!
 
 #define QC_OK 0
 
@@ -114,29 +115,30 @@ struct _QCSkin {
     const char * background_color;  // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
     const char * mask_color;        // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
     const char * overlay_color;     // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
-    const char * data_color;        // Color as a string: CSS name, #aabbcc hex, or rgb() triple.
     const char * image_url;         // Image URL or embedded raw data "URL" like "data:image/png;base64,..."
     const char * logo_url;          // Logo URL or embedded raw data "URL" like "data:image/png;base64,..."
-    int32_t     image_fit;         // One of the QC_IMAGE_FIT constants.
-    int32_t     logo_fit;          // One of the QC_IMAGE_FIT constants.
-    int32_t     join;              // Sum of QC_JOIN constants, or -1 for "template default".
+    const char ** data_colors;      // Array of colors as a string: CSS name, #aabbcc hex, or rgb() triple.
+    int32_t     num_data_colors;
+    int32_t     image_fit;          // One of the QC_IMAGE_FIT constants.
+    int32_t     logo_fit;           // One of the QC_IMAGE_FIT constants.
+    int32_t     join;               // Sum of QC_JOIN constants, or -1 for "template default".
     int32_t     _pad;
 } __attribute__ ((aligned(8)));
 typedef struct _QCSkin QCSkin;
 
 
 // Get version string.
-const char * qc_version_str();
+const char * qc_version_str(void);
 // Parse version string.
 void qc_version(int * out_major, int * out_minor, int * out_patch);
 
 
 // Returns 1 if this is a QC_DEBUG-enabled build.
-uint8_t qc_debug();
+uint8_t qc_debug(void);
 
 // Checks that all libraries have been linked correctly, and returns library version on success.
 // Returns NULL for errors.
-const char * qc_check_linking();
+const char * qc_check_linking(void);
 
 // Build a scanning pipeline out of the specification of stages and parameters in the blueprint.
 _QCPipeline* qc_alloc_build_pipeline(const char* blueprint);
@@ -148,7 +150,7 @@ int32_t qc_process_frame(
     const uint8_t* const input,               // Bytes for the input image.
     int32_t format,                           // One of the format defines.
     int32_t width,                            // Height of the input image in pixels.
-    int32_t height,                           // Width of the input image in pixels.
+    int32_t height,                           // Width of the input image in pixels. For NV21 format, actual height of the byte buffer must be 1.5x larger.
     int32_t bytes_per_row                     // Usually width for GREY_UINT8, and width*4 for XXXA_UINT32. May be larger if image rows have padding in memory.
                                               // Pass -1 to have it automatically computed from width * format.
 );
