@@ -1,10 +1,16 @@
 framework module Quikkly {
-  umbrella header "Quikkly.h"
-
-  export *
-  module * { export * }
+    umbrella header "Quikkly.h"
+    
+    module Core [system] {
+        header "quikklycore.h"
+        export *
+    }
+    
+    export *
+    module * { export * }
 }
 
 module Quikkly.Swift {
     header "Quikkly-Swift.h"
+    requires objc
 }

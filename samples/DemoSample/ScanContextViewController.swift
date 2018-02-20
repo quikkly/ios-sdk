@@ -22,7 +22,7 @@ class ScanContextViewController: UIViewController {
         self.view.addSubview(button)
     }
     
-    func presentScanViewController() {
+    @objc func presentScanViewController() {
         self.present(CustomScanViewController(), animated: true) { 
             
         }
