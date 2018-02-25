@@ -331,6 +331,7 @@ SWIFT_CLASS_NAMED("ScannableSkin")
 @interface QKScannableSkin : NSObject
 @property (nonatomic, copy) NSString * _Nullable backgroundColor;
 @property (nonatomic, copy) NSString * _Nullable borderColor;
+@property (nonatomic, copy) NSArray<NSString *> * _Nullable dataColors;
 @property (nonatomic, copy) NSString * _Nullable maskColor;
 @property (nonatomic, copy) NSString * _Nullable overlayColor;
 @property (nonatomic, copy) NSString * _Nullable imageUri;
