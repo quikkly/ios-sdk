@@ -38,7 +38,7 @@ class GenerateViewController: UIViewController {
         // Generate scannable
         let skin = ScannableSkin()
         skin.backgroundColor = "#3299FF"
-        skin.overlayColor = "#FFFFFF"
+        skin.dataColors = ["#FFFFFF" ]
         skin.borderColor = "#444444"
         skin.imageUri = "https://s3-eu-west-1.amazonaws.com/docs.quikkly.io/img/1481647718.png"
         let scannable = Scannable(withValue: 123456789, template:nil, skin: skin)
