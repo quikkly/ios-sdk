@@ -176,6 +176,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 @import CoreGraphics;
 @import AVFoundation;
+@import Dispatch;
 @import WebKit;
 #endif
 
@@ -280,6 +281,7 @@ SWIFT_CLASS_NAMED("Scannable")
 @property (nonatomic, readonly) uint64_t value;
 @property (nonatomic, copy, getter=template, setter=setTemplate:) NSString * _Nonnull template_;
 @property (nonatomic, strong) QKScannableSkin * _Nonnull skin;
+@property (nonatomic, readonly, copy) NSArray<NSValue *> * _Nonnull corners;
 /// An SVG representation of the scannable object
 @property (nonatomic, readonly, copy) NSString * _Nullable svgString;
 /// Retrieves data linked to the scannable on the Quikkly back-end
@@ -322,6 +324,34 @@ SWIFT_CLASS_NAMED("Scannable")
 /// A new Scannable object
 - (nonnull instancetype)initWithValue:(uint64_t)value template:(NSString * _Nullable)template_ skin:(QKScannableSkin * _Nonnull)skin;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
+@end
+
+@protocol QKScannablePipelineDelegate;
+
+/// ScannablePipeline class represents a customisable queue to detect smart Quikkly scannable codes.
+SWIFT_CLASS_NAMED("ScannablePipeline")
+@interface QKScannablePipeline : NSObject
+@property (nonatomic, weak) id <QKScannablePipelineDelegate> _Nullable delegate;
+- (nonnull instancetype)init;
+/// Initialises and returns a newly allocated pipeline object.
+/// \param workQueue The queue that will be used to process images
+///
+/// \param mainQueue The queue that will be used to call delegate methods
+///
+- (nonnull instancetype)initWithWorkQueue:(dispatch_queue_t _Nullable)workQueue mainQueue:(dispatch_queue_t _Nonnull)mainQueue OBJC_DESIGNATED_INITIALIZER;
+/// Push an image to the background worker queue.
+/// \param image The image to scan for scannables
+///
+- (void)pushWithImage:(CGImageRef _Nonnull)image;
+/// Clears any images that are waiting in the queue.
+- (void)clear;
+@end
+
+
+/// ScannablePipelineDelegate allows you to receive processed results on the main thread.
+SWIFT_PROTOCOL_NAMED("ScannablePipelineDelegate")
+@protocol QKScannablePipelineDelegate
+- (void)pipelineDidProcessImage:(CGImageRef _Nonnull)image scannables:(NSArray<QKScannable *> * _Nonnull)scannables;
 @end
 
 enum QKScannableSkinImageFit : int32_t;

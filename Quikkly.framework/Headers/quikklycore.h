@@ -47,7 +47,7 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_EXPORT __attribute__((visibility("default")))
 
 
-#define QC_VERSION_STR "3.2.0"
+#define QC_VERSION_STR "3.3.1"
 
 
 // Greyscale, 1 byte per pixel. Array order is: row, column.
@@ -143,6 +143,10 @@ const char * qc_check_linking(void);
 // Build a scanning pipeline out of the specification of stages and parameters in the blueprint.
 _QCPipeline* qc_alloc_build_pipeline(const char* blueprint);
 void qc_release_pipeline(_QCPipeline* pipeline);
+
+// Get info on loaded templates
+uint32_t qc_num_templates(const _QCPipeline* const pipeline);
+const char * qc_template_identifier(const _QCPipeline* const pipeline, uint32_t template_index);
 
 // Returns 0 on success (even if no tag was found), other numbers based on OpenCV exception error codes.
 int32_t qc_process_frame(
