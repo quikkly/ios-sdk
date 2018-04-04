@@ -292,7 +292,7 @@ SWIFT_CLASS_NAMED("Scannable")
 /// \param completion Block with an array of detected scannables; can be empty but not nil
 ///
 + (void)detectInImage:(CGImageRef _Nonnull)image completion:(void (^ _Nonnull)(NSArray<QKScannable *> * _Nonnull))completion;
-/// Asynchronous detection of scannables in an image
+/// Synchronous detection of scannables in an image
 /// \param image The image to scan for scannables
 ///
 ///
@@ -346,12 +346,23 @@ SWIFT_CLASS_NAMED("ScannablePipeline")
 - (void)clear;
 @end
 
+enum QKScannableResult : NSInteger;
 
 /// ScannablePipelineDelegate allows you to receive processed results on the main thread.
 SWIFT_PROTOCOL_NAMED("ScannablePipelineDelegate")
 @protocol QKScannablePipelineDelegate
-- (void)pipelineDidProcessImage:(CGImageRef _Nonnull)image scannables:(NSArray<QKScannable *> * _Nonnull)scannables;
+- (void)pipelineDidProcessImage:(CGImageRef _Nonnull)image result:(enum QKScannableResult)result scannables:(NSArray<QKScannable *> * _Nonnull)scannables;
 @end
+
+/// ScannablePipelineResult for more detailed results.
+typedef SWIFT_ENUM_NAMED(NSInteger, QKScannableResult, "ScannablePipelineResult") {
+  QKScannableResultUnknown = 0,
+  QKScannableResultNoFrameScanned = 10,
+  QKScannableResultNoShapesFound = 100,
+  QKScannableResultShapeFound = 200,
+  QKScannableResultDotsFound = 300,
+  QKScannableResultSuccess = 10000,
+};
 
 enum QKScannableSkinImageFit : int32_t;
 

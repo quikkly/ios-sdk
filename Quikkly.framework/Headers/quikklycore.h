@@ -47,15 +47,15 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_EXPORT __attribute__((visibility("default")))
 
 
-#define QC_VERSION_STR "3.3.4"
+#define QC_VERSION_STR "3.3.6"
 
 
 // Greyscale, 1 byte per pixel. Array order is: row, column.
 // For NV21, just use GREY_UINT8, its grayscale channel comes first in memory, and the color channels will be ignored.
-#define QC_IMAGE_FORMAT_GREY_UINT8 0
+#define QC_IMAGE_FORMAT_GREY_UINT8  0
 #define QC_IMAGE_FORMAT_BGRA_UINT32 1
 #define QC_IMAGE_FORMAT_RGBA_UINT32 2
-#define QC_IMAGE_FORMAT_NV21_UINT8 3  // Input byte buffer must be 1.5 * height rows!
+#define QC_IMAGE_FORMAT_NV21_UINT8  3  // Input byte buffer must be 1.5 * height rows!
 
 #define QC_OK 0
 
@@ -74,6 +74,15 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_JOIN_DIAGONAL_RIGHT 4  // diagonal BL-TR: /.
 #define QC_JOIN_DIAGONAL_LEFT  8  // diagonal BR-TL: \.
 #define QC_JOIN_MAX           16  // Sum of all join constants, do not use.
+
+
+#define QC_SCAN_STATUS_UNKNOWN             0
+#define QC_SCAN_STATUS_NO_FRAME_SCANNED    10
+#define QC_SCAN_STATUS_NO_SHAPES_FOUND     100
+#define QC_SCAN_STATUS_SHAPE_FOUND         200
+#define QC_SCAN_STATUS_DOTS_FOUND          300
+#define QC_SCAN_STATUS_SUCCESS             10000
+#define QC_SCAN_STATUS_MAX                 99999
 
 
 typedef void _QCPipeline;
@@ -100,8 +109,9 @@ typedef struct _QCTag QCTag;
 // You can access the data until a matching qc_release_result() call.
 struct _QCScanResult {
     QCTag * tags;
+    uint8_t * status_image;  // May be null
     int32_t num_tags;
-    int32_t _pad;
+    int32_t status_code;
 } __attribute__ ((aligned(8)));
 typedef struct _QCScanResult QCScanResult;
 
@@ -160,7 +170,7 @@ int32_t qc_process_frame(
 );
 
 // Allocates a new QCScanResult, and fills it with data from the last processed frame from the pipeline.
-QCScanResult* qc_alloc_extract_result(const _QCPipeline* const pipeline);
+QCScanResult* qc_alloc_extract_result(const _QCPipeline* const pipeline, uint8_t return_status_image);
 void qc_release_result(QCScanResult * result);
 
 // Generate new tags.
