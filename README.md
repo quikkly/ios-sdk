@@ -29,18 +29,16 @@ Quikkly is the easiest way to implement smart scannables.
 - Scanning with camera
 - Generating scannable codes
 - Linking data to scannables
-- Written in Swift 3 with Objective-C support
+- Written in Swift 4 with Objective-C support
 
 ## Requirements
 
 - iOS 8.0+
-- Swift 3.2+ or Objective-C
+- Swift 4.1+ or Objective-C
 
 ## Installation
 
 In order to use this SDK, a Quikkly app key is required. Visit [here](https://developers.quikkly.io) for more information.
-
-Currently bitcode isn't supported, so it has to be turned off in the target's ```Build Settings``` > ```Build Options``` > ```Enable Bitcode```.
 
 ### CocoaPods
 
