@@ -14,8 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Quikkly framework setup
         Quikkly.apiKey = "kCPeTZnGsmo90ZAu9q2rlXB94EAbUC2fvK7Ur95tLHsKFIYhYdt8Qrl80iVy" //Insert your api key here
         

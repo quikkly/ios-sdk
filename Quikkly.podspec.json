@@ -1,6 +1,6 @@
 {
     "name": "Quikkly",
-    "version": "3.4.6",
+    "version": "3.4.7",
     "homepage": "https://quikklycodes.com/",
     "license": {
         "type": "Commercial",
@@ -13,10 +13,10 @@
     "platforms": {
         "ios": "8.0"
     },
-    "swift_version": "4.1",
+    "swift_version": "4.2",
     "source": {
         "git": "https://github.com/quikkly/ios-sdk.git",
-        "tag": "3.4.6"
+        "tag": "3.4.7"
     },
     "vendored_frameworks": "Quikkly.framework",
     "requires_arc": true
