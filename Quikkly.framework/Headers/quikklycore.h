@@ -47,7 +47,7 @@ Otherwise Python bindings get messy, and floating point access crashes with a ve
 #define QC_EXPORT __attribute__((visibility("default")))
 
 
-#define QC_VERSION_STR "3.4.8"
+#define QC_VERSION_STR "3.4.9"
 
 
 // Greyscale, 1 byte per pixel. Array order is: row, column.
