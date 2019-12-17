@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
-// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Quikkly
+// swift-module-flags: -target arm64-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name Quikkly
 import AVFoundation
 import CoreImage
 import Foundation
@@ -9,18 +9,18 @@ import Swift
 import UIKit
 import WebKit
 @objc(QKScanViewDelegate) public protocol ScanViewDelegate : AnyObject {
-  @objc optional func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable])
+  @objc optional func scanView(_ scanView: Quikkly.ScanView, didDetectScannables scannables: [Quikkly.Scannable])
   @objc optional func scanViewDidRequestCamera(status: AVFoundation.AVAuthorizationStatus) -> Swift.Bool
 }
 @objc(QKScanView) public class ScanView : UIKit.UIView {
   public var zoom: CoreGraphics.CGFloat {
     get
-    set
+    set(newValue)
   }
-  @objc weak public var delegate: ScanViewDelegate?
+  @objc weak public var delegate: Quikkly.ScanViewDelegate?
   @objc override dynamic public var frame: CoreGraphics.CGRect {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
@@ -48,20 +48,20 @@ import WebKit
   @objc public var maskColor: Swift.String?
   @objc public var overlayColor: Swift.String?
   @objc public var imageUri: Swift.String?
-  @objc public var imageFit: ScannableSkin.ImageFit
+  @objc public var imageFit: Quikkly.ScannableSkin.ImageFit
   @objc public var logoUri: Swift.String?
-  @objc public var logoFit: ScannableSkin.ImageFit
-  @objc public var joinOptions: QKScannableSkinJoinOption
+  @objc public var logoFit: Quikkly.ScannableSkin.ImageFit
+  @objc public var joinOptions: Quikkly.QKScannableSkinJoinOption
   @objc override dynamic public init()
   @objc deinit
 }
 @objc(QKQuikkly) public class Quikkly : ObjectiveC.NSObject {
   @objc public static var apiKey: Swift.String? {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc public static var blueprintFilename: Swift.String?
-  @objc public static var user: User?
+  @objc public static var user: Quikkly.Quikkly.User?
   @objc(QKUser) public class User : ObjectiveC.NSObject {
     @objc public var dob: Swift.String?
     @objc public var gender: Swift.String?
@@ -74,17 +74,17 @@ import WebKit
   @objc deinit
 }
 @objc(QKScannableViewDelegate) public protocol ScannableViewDelegate : AnyObject {
-  @objc optional func scannableViewWillStartLoading(_ scannableView: ScannableView)
-  @objc optional func scannableView(_ scannableView: ScannableView, didFinishLoading success: Swift.Bool)
+  @objc optional func scannableViewWillStartLoading(_ scannableView: Quikkly.ScannableView)
+  @objc optional func scannableView(_ scannableView: Quikkly.ScannableView, didFinishLoading success: Swift.Bool)
 }
 @objc(QKScannableView) public class ScannableView : UIKit.UIView, WebKit.WKNavigationDelegate, UIKit.UIWebViewDelegate {
-  @objc weak public var delegate: ScannableViewDelegate?
-  @objc public var scannable: Scannable? {
+  @objc weak public var delegate: Quikkly.ScannableViewDelegate?
+  @objc public var scannable: Quikkly.Scannable? {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc convenience public init(withScannable scannable: Scannable)
+  @objc public convenience init(withScannable scannable: Quikkly.Scannable)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
   @objc public func reload()
   @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
@@ -101,8 +101,8 @@ public struct UIImageColors {
   public var detailColor: UIKit.UIColor!
 }
 extension UIImage {
-  public func getColors(scaleDownSize: CoreGraphics.CGSize = CGSize.zero, completionHandler: @escaping (UIImageColors) -> Swift.Void)
-  public func getColors(scaleDownSize: CoreGraphics.CGSize = CGSize.zero) -> UIImageColors
+  public func getColors(scaleDownSize: CoreGraphics.CGSize = CGSize.zero, completionHandler: @escaping (Quikkly.UIImageColors) -> Swift.Void)
+  public func getColors(scaleDownSize: CoreGraphics.CGSize = CGSize.zero) -> Quikkly.UIImageColors
 }
 @objc(QKScannableResult) public enum ScannablePipelineResult : Swift.Int {
   case unknown = 0
@@ -118,21 +118,21 @@ extension UIImage {
   }
 }
 @objc(QKScannablePipelineDelegate) public protocol ScannablePipelineDelegate : AnyObject {
-  @objc func pipelineDidProcessImage(_ image: CoreGraphics.CGImage, result: ScannablePipelineResult, scannables: [Scannable])
+  @objc func pipelineDidProcessImage(_ image: CoreGraphics.CGImage, result: Quikkly.ScannablePipelineResult, scannables: [Quikkly.Scannable])
 }
 @objc(QKScannablePipeline) public class ScannablePipeline : ObjectiveC.NSObject {
-  @objc weak public var delegate: ScannablePipelineDelegate?
-  public class func process(_ image: CoreGraphics.CGImage) -> (ScannablePipelineResult, [Scannable])
-  @objc override convenience dynamic public init()
+  @objc weak public var delegate: Quikkly.ScannablePipelineDelegate?
+  public class func process(_ image: CoreGraphics.CGImage) -> (Quikkly.ScannablePipelineResult, [Quikkly.Scannable])
+  @objc override dynamic public convenience init()
   @objc public init(workQueue: Dispatch.DispatchQueue?, mainQueue: Dispatch.DispatchQueue = DispatchQueue.main)
   @objc public func push(image: CoreGraphics.CGImage)
   @objc public func clear()
   @objc deinit
 }
-@objc open class ScanViewController : UIKit.UIViewController, ScanViewDelegate {
+@objc open class ScanViewController : UIKit.UIViewController, Quikkly.ScanViewDelegate {
   open var zoom: CoreGraphics.CGFloat {
     get
-    set
+    set(newValue)
   }
   @objc override dynamic open var preferredInterfaceOrientationForPresentation: UIKit.UIInterfaceOrientation {
     @objc get
@@ -144,7 +144,7 @@ extension UIImage {
     @objc get
   }
   @objc dynamic public init()
-  @objc required convenience dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc required dynamic public convenience init?(coder aDecoder: Foundation.NSCoder)
   @objc override dynamic open func viewDidLoad()
   @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
   @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
@@ -162,7 +162,7 @@ extension UIImage {
     get
     }
   @objc public var template: Swift.String
-  @objc public var skin: ScannableSkin
+  @objc public var skin: Quikkly.ScannableSkin
   @objc public var corners: [CoreGraphics.CGPoint] {
     get
     }
@@ -170,15 +170,9 @@ extension UIImage {
     @objc get
   }
   @objc public func getMappedData(_ completion: @escaping ([Swift.String : Any]?) -> Swift.Void)
-  @objc public class func detect(inImage image: CoreGraphics.CGImage, completion: @escaping ([Scannable]) -> Swift.Void)
-  @objc public class func detect(inImage image: CoreGraphics.CGImage) -> [Scannable]
-  @objc convenience public init(withMappedData mappedData: [Swift.String : Any], template: Swift.String?, skin: ScannableSkin?, completion: @escaping (Swift.Bool, Scannable) -> Swift.Void)
-  @objc convenience public init(withValue value: Swift.UInt64, template: Swift.String?, skin: ScannableSkin)
+  @objc public class func detect(inImage image: CoreGraphics.CGImage, completion: @escaping ([Quikkly.Scannable]) -> Swift.Void)
+  @objc public class func detect(inImage image: CoreGraphics.CGImage) -> [Quikkly.Scannable]
+  @objc public convenience init(withMappedData mappedData: [Swift.String : Any], template: Swift.String?, skin: Quikkly.ScannableSkin?, completion: @escaping (Swift.Bool, Quikkly.Scannable) -> Swift.Void)
+  @objc public convenience init(withValue value: Swift.UInt64, template: Swift.String?, skin: Quikkly.ScannableSkin)
   @objc deinit
 }
-extension ScannableSkin.ImageFit : Swift.Equatable {}
-extension ScannableSkin.ImageFit : Swift.Hashable {}
-extension ScannableSkin.ImageFit : Swift.RawRepresentable {}
-extension ScannablePipelineResult : Swift.Equatable {}
-extension ScannablePipelineResult : Swift.Hashable {}
-extension ScannablePipelineResult : Swift.RawRepresentable {}

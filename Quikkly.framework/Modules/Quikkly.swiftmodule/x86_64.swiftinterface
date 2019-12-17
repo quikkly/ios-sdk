@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
-// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Quikkly
+// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name Quikkly
 import AVFoundation
 import CoreImage
 import Foundation
@@ -15,12 +15,12 @@ import WebKit
 @objc(QKScanView) public class ScanView : UIKit.UIView {
   public var zoom: CoreGraphics.CGFloat {
     get
-    set
+    set(newValue)
   }
   @objc weak public var delegate: Quikkly.ScanViewDelegate?
   @objc override dynamic public var frame: CoreGraphics.CGRect {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
@@ -58,7 +58,7 @@ import WebKit
 @objc(QKQuikkly) public class Quikkly : ObjectiveC.NSObject {
   @objc public static var apiKey: Swift.String? {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc public static var blueprintFilename: Swift.String?
   @objc public static var user: Quikkly.Quikkly.User?
@@ -81,10 +81,10 @@ import WebKit
   @objc weak public var delegate: Quikkly.ScannableViewDelegate?
   @objc public var scannable: Quikkly.Scannable? {
     @objc get
-    @objc set
+    @objc set(newValue)
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
-  @objc convenience public init(withScannable scannable: Quikkly.Scannable)
+  @objc public convenience init(withScannable scannable: Quikkly.Scannable)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
   @objc public func reload()
   @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
@@ -123,7 +123,7 @@ extension UIImage {
 @objc(QKScannablePipeline) public class ScannablePipeline : ObjectiveC.NSObject {
   @objc weak public var delegate: Quikkly.ScannablePipelineDelegate?
   public class func process(_ image: CoreGraphics.CGImage) -> (Quikkly.ScannablePipelineResult, [Quikkly.Scannable])
-  @objc override convenience dynamic public init()
+  @objc override dynamic public convenience init()
   @objc public init(workQueue: Dispatch.DispatchQueue?, mainQueue: Dispatch.DispatchQueue = DispatchQueue.main)
   @objc public func push(image: CoreGraphics.CGImage)
   @objc public func clear()
@@ -132,7 +132,7 @@ extension UIImage {
 @objc open class ScanViewController : UIKit.UIViewController, Quikkly.ScanViewDelegate {
   open var zoom: CoreGraphics.CGFloat {
     get
-    set
+    set(newValue)
   }
   @objc override dynamic open var preferredInterfaceOrientationForPresentation: UIKit.UIInterfaceOrientation {
     @objc get
@@ -144,7 +144,7 @@ extension UIImage {
     @objc get
   }
   @objc dynamic public init()
-  @objc required convenience dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc required dynamic public convenience init?(coder aDecoder: Foundation.NSCoder)
   @objc override dynamic open func viewDidLoad()
   @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
   @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
@@ -172,13 +172,7 @@ extension UIImage {
   @objc public func getMappedData(_ completion: @escaping ([Swift.String : Any]?) -> Swift.Void)
   @objc public class func detect(inImage image: CoreGraphics.CGImage, completion: @escaping ([Quikkly.Scannable]) -> Swift.Void)
   @objc public class func detect(inImage image: CoreGraphics.CGImage) -> [Quikkly.Scannable]
-  @objc convenience public init(withMappedData mappedData: [Swift.String : Any], template: Swift.String?, skin: Quikkly.ScannableSkin?, completion: @escaping (Swift.Bool, Quikkly.Scannable) -> Swift.Void)
-  @objc convenience public init(withValue value: Swift.UInt64, template: Swift.String?, skin: Quikkly.ScannableSkin)
+  @objc public convenience init(withMappedData mappedData: [Swift.String : Any], template: Swift.String?, skin: Quikkly.ScannableSkin?, completion: @escaping (Swift.Bool, Quikkly.Scannable) -> Swift.Void)
+  @objc public convenience init(withValue value: Swift.UInt64, template: Swift.String?, skin: Quikkly.ScannableSkin)
   @objc deinit
 }
-extension Quikkly.ScannableSkin.ImageFit : Swift.Equatable {}
-extension Quikkly.ScannableSkin.ImageFit : Swift.Hashable {}
-extension Quikkly.ScannableSkin.ImageFit : Swift.RawRepresentable {}
-extension Quikkly.ScannablePipelineResult : Swift.Equatable {}
-extension Quikkly.ScannablePipelineResult : Swift.Hashable {}
-extension Quikkly.ScannablePipelineResult : Swift.RawRepresentable {}
