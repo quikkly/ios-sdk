@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		RtJh71vQAaxyfrXqPdot2j0aymg=
+		R3V68e9aH9FTPXjWd1jt/xdK9IQ=
 		</data>
 		<key>Headers/QKScanViewController.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/Quikkly-Swift.h</key>
 		<data>
-		vKuEeKpiMJkwd+Q1blBZgB5EGQk=
+		OqqR2Cc/bf0hpmCLLln4/DIr73Y=
 		</data>
 		<key>Headers/Quikkly.h</key>
 		<data>
@@ -26,59 +26,75 @@
 		</data>
 		<key>Headers/quikklycore.h</key>
 		<data>
-		K8KePdQvDa6mExMvCCvtATKsLpQ=
+		oActSpReK2dnLe767NZVCIfe3Ck=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		7rE4JZhDOQ3lvLn8IbK7v6OZWmE=
+		vCtSumqAfrGdAxqtnO6rbvQHdSM=
+		</data>
+		<key>Modules/Quikkly.swiftmodule/Project/i386-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		kvxaUpeJmYXkXeOlu7/WKthXXbw=
+		</data>
+		<key>Modules/Quikkly.swiftmodule/Project/i386.swiftsourceinfo</key>
+		<data>
+		kvxaUpeJmYXkXeOlu7/WKthXXbw=
+		</data>
+		<key>Modules/Quikkly.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<data>
+		a8pYO0ySzkvao45zsgl0FmWoAyk=
+		</data>
+		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
+		<data>
+		a8pYO0ySzkvao45zsgl0FmWoAyk=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftdoc</key>
 		<data>
-		o+fwFn7WrUoHChExfuT8T3fvetM=
+		+XSjAOMJzu1QbROUXbcDbjnfEQ8=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftinterface</key>
 		<data>
-		TrkQ6YwB7XX67rbE2Kq26NGYuXg=
+		jh8J8l5Axyq1kedr01DLvttL1Rw=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftmodule</key>
 		<data>
-		mTdaptPjyKSXPcEYZP5jhWahMxw=
+		rvUkRnkwUdoJ8gNpPbnTICKx190=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftdoc</key>
 		<data>
-		o+fwFn7WrUoHChExfuT8T3fvetM=
+		+XSjAOMJzu1QbROUXbcDbjnfEQ8=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftinterface</key>
 		<data>
-		TrkQ6YwB7XX67rbE2Kq26NGYuXg=
+		jh8J8l5Axyq1kedr01DLvttL1Rw=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftmodule</key>
 		<data>
-		mTdaptPjyKSXPcEYZP5jhWahMxw=
+		rvUkRnkwUdoJ8gNpPbnTICKx190=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		9wptYr9cQL0J1DitlsmLrzMDJ/g=
+		YitZdCGK4hdd07GDWyGvv1j1BJE=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		RvpMZwuaDVQD/3lfDcdzbJttkNE=
+		WpBI088vkM23KdRElwiKdRlPHTM=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		2avy8/fh0bkE4bniqmD0Jv9c5L4=
+		TdBl+4lC0JZjoYKwNKFgYsPXm1M=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		9wptYr9cQL0J1DitlsmLrzMDJ/g=
+		YitZdCGK4hdd07GDWyGvv1j1BJE=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		RvpMZwuaDVQD/3lfDcdzbJttkNE=
+		WpBI088vkM23KdRElwiKdRlPHTM=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		2avy8/fh0bkE4bniqmD0Jv9c5L4=
+		TdBl+4lC0JZjoYKwNKFgYsPXm1M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -91,11 +107,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RtJh71vQAaxyfrXqPdot2j0aymg=
+			R3V68e9aH9FTPXjWd1jt/xdK9IQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			M1FgvTIwZvY8d8xIUdxDivyRoaVay+2b7oe8375ZrUs=
+			yPQxI5l8UQnAne2eZTL7dOLcpdm7eW36JFXXjNnf8lk=
 			</data>
 		</dict>
 		<key>Headers/QKScanViewController.h</key>
@@ -124,11 +140,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vKuEeKpiMJkwd+Q1blBZgB5EGQk=
+			OqqR2Cc/bf0hpmCLLln4/DIr73Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			tuK5IdXmoYkqXMgkG2B3aiKcFK1Sb9N900T+tcPDHu4=
+			xyKEUWe8jEYYXyszvYOac5lC3raDqROL44WwZe9N+YA=
 			</data>
 		</dict>
 		<key>Headers/Quikkly.h</key>
@@ -146,143 +162,187 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			K8KePdQvDa6mExMvCCvtATKsLpQ=
+			oActSpReK2dnLe767NZVCIfe3Ck=
 			</data>
 			<key>hash2</key>
 			<data>
-			D8UBIIBfE2BpVVayIBiXyeUmlhJbiXPwCFuObFYI2ek=
+			AbubJxpsB3leNfo0Xm3qrSPYRI1jfVzfaeknxXMolyU=
+			</data>
+		</dict>
+		<key>Modules/Quikkly.swiftmodule/Project/i386-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kvxaUpeJmYXkXeOlu7/WKthXXbw=
+			</data>
+			<key>hash2</key>
+			<data>
+			lZsBl1tihcW9FFfmVtV/sGwshC+7EHmM0DECN//6SJI=
+			</data>
+		</dict>
+		<key>Modules/Quikkly.swiftmodule/Project/i386.swiftsourceinfo</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kvxaUpeJmYXkXeOlu7/WKthXXbw=
+			</data>
+			<key>hash2</key>
+			<data>
+			lZsBl1tihcW9FFfmVtV/sGwshC+7EHmM0DECN//6SJI=
+			</data>
+		</dict>
+		<key>Modules/Quikkly.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			a8pYO0ySzkvao45zsgl0FmWoAyk=
+			</data>
+			<key>hash2</key>
+			<data>
+			l6QBRcI5kbZ6KultrFgj14OeI07vuCkBVAtOo5vhUcU=
+			</data>
+		</dict>
+		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			a8pYO0ySzkvao45zsgl0FmWoAyk=
+			</data>
+			<key>hash2</key>
+			<data>
+			l6QBRcI5kbZ6KultrFgj14OeI07vuCkBVAtOo5vhUcU=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			o+fwFn7WrUoHChExfuT8T3fvetM=
+			+XSjAOMJzu1QbROUXbcDbjnfEQ8=
 			</data>
 			<key>hash2</key>
 			<data>
-			ozVx+0G8f3707rBJxSmZVFeSisZ+AxkfWExsMBSKZnE=
+			1LSGKzUjzhPBFNlccPnYg5j07Ws/0FGO90jhn+jqevI=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TrkQ6YwB7XX67rbE2Kq26NGYuXg=
+			jh8J8l5Axyq1kedr01DLvttL1Rw=
 			</data>
 			<key>hash2</key>
 			<data>
-			R72zZirwwJEx3k9FCVHxPJ8VNMoQaaxrqiHlWOrfdJ8=
+			KhsauZ6rVTcSTCiTYE98AtEBEEp/N/Gj/5eStUr9sNE=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mTdaptPjyKSXPcEYZP5jhWahMxw=
+			rvUkRnkwUdoJ8gNpPbnTICKx190=
 			</data>
 			<key>hash2</key>
 			<data>
-			jYOOsigoNGm5+7NLA7UMH5ilESHrWGt548uhkIA/S1w=
+			hCbEsNzraiqHXVR/xoMpeJBwGjLSy0tpThMPv91NVtQ=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			o+fwFn7WrUoHChExfuT8T3fvetM=
+			+XSjAOMJzu1QbROUXbcDbjnfEQ8=
 			</data>
 			<key>hash2</key>
 			<data>
-			ozVx+0G8f3707rBJxSmZVFeSisZ+AxkfWExsMBSKZnE=
+			1LSGKzUjzhPBFNlccPnYg5j07Ws/0FGO90jhn+jqevI=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TrkQ6YwB7XX67rbE2Kq26NGYuXg=
+			jh8J8l5Axyq1kedr01DLvttL1Rw=
 			</data>
 			<key>hash2</key>
 			<data>
-			R72zZirwwJEx3k9FCVHxPJ8VNMoQaaxrqiHlWOrfdJ8=
+			KhsauZ6rVTcSTCiTYE98AtEBEEp/N/Gj/5eStUr9sNE=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mTdaptPjyKSXPcEYZP5jhWahMxw=
+			rvUkRnkwUdoJ8gNpPbnTICKx190=
 			</data>
 			<key>hash2</key>
 			<data>
-			jYOOsigoNGm5+7NLA7UMH5ilESHrWGt548uhkIA/S1w=
+			hCbEsNzraiqHXVR/xoMpeJBwGjLSy0tpThMPv91NVtQ=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9wptYr9cQL0J1DitlsmLrzMDJ/g=
+			YitZdCGK4hdd07GDWyGvv1j1BJE=
 			</data>
 			<key>hash2</key>
 			<data>
-			Lez6Ft3aJJkV7b9RcOaHK+hdgbIuBw+Duho/g2O6KJQ=
+			p4ZvSPlXiYcnucX/JwBcYvNlEDOw839DM4+S/gY38B0=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RvpMZwuaDVQD/3lfDcdzbJttkNE=
+			WpBI088vkM23KdRElwiKdRlPHTM=
 			</data>
 			<key>hash2</key>
 			<data>
-			Dq+C56Up1kT35zr2uDq9kNr5d5ZDgkvVx7a28zdCIBg=
+			s0aNzUvZj0BBfxHKTQ8rEUmOw4/QiJEtryO4h6YgGFQ=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2avy8/fh0bkE4bniqmD0Jv9c5L4=
+			TdBl+4lC0JZjoYKwNKFgYsPXm1M=
 			</data>
 			<key>hash2</key>
 			<data>
-			Xscs+lNXgTJ3P9j8haYydPzkBN27PSteb48HrsOyGq0=
+			g612ogBGo1LblBhhxVNgO/jdpCsZ1SSPZs84OtUgLyQ=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9wptYr9cQL0J1DitlsmLrzMDJ/g=
+			YitZdCGK4hdd07GDWyGvv1j1BJE=
 			</data>
 			<key>hash2</key>
 			<data>
-			Lez6Ft3aJJkV7b9RcOaHK+hdgbIuBw+Duho/g2O6KJQ=
+			p4ZvSPlXiYcnucX/JwBcYvNlEDOw839DM4+S/gY38B0=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RvpMZwuaDVQD/3lfDcdzbJttkNE=
+			WpBI088vkM23KdRElwiKdRlPHTM=
 			</data>
 			<key>hash2</key>
 			<data>
-			Dq+C56Up1kT35zr2uDq9kNr5d5ZDgkvVx7a28zdCIBg=
+			s0aNzUvZj0BBfxHKTQ8rEUmOw4/QiJEtryO4h6YgGFQ=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2avy8/fh0bkE4bniqmD0Jv9c5L4=
+			TdBl+4lC0JZjoYKwNKFgYsPXm1M=
 			</data>
 			<key>hash2</key>
 			<data>
-			Xscs+lNXgTJ3P9j8haYydPzkBN27PSteb48HrsOyGq0=
+			g612ogBGo1LblBhhxVNgO/jdpCsZ1SSPZs84OtUgLyQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
