@@ -18,6 +18,6 @@
         "git": "https://github.com/quikkly/ios-sdk.git",
         "tag": "3.4.18"
     },
-    "vendored_frameworks": "Quikkly.framework",
+    "vendored_frameworks": "Quikkly.xcframework",
     "requires_arc": true
 }
