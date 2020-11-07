@@ -179,7 +179,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DemoSample/Pods-DemoSample-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-DemoSample/Pods-DemoSample-frameworks.sh",
 				"${PODS_ROOT}/Quikkly/Quikkly.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -188,7 +188,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DemoSample/Pods-DemoSample-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoSample/Pods-DemoSample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D1FD5C2D88B7EB3615D94E77 /* [CP] Check Pods Manifest.lock */ = {
