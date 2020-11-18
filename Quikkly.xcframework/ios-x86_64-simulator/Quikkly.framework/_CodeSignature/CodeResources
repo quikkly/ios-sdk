@@ -6,15 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		iWlTKacderKxEgJDI9ate21GFr4=
-		</data>
-		<key>Frameworks/libopencv.a</key>
-		<data>
-		ktgfJ8zAmIGleaFyvXxW3zrGWFg=
-		</data>
-		<key>Frameworks/libquikklycore.a</key>
-		<data>
-		9BPumVilhSEIKqL68Auur7tBMXc=
+		vsHn8wEd4gU9WxbaLLnKyqubbqI=
 		</data>
 		<key>Headers/QKScanViewController.h</key>
 		<data>
@@ -26,7 +18,7 @@
 		</data>
 		<key>Headers/Quikkly-Swift.h</key>
 		<data>
-		mevqy6/Jp4eElVEFnxC6oZIIv04=
+		Z4htWkCzmn9eych9TQI4F991Qfw=
 		</data>
 		<key>Headers/Quikkly.h</key>
 		<data>
@@ -38,39 +30,39 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		eIHnygVMu0HoHlE87Wsc83ula9U=
+		m7VKRmTiQ4ZRCAiM1eAh14YJRys=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		o2K0mjej0rt4ojq/I0cSoABiraE=
+		stESJLTB9hZEVBKrHAkYhBaTycY=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		o2K0mjej0rt4ojq/I0cSoABiraE=
+		stESJLTB9hZEVBKrHAkYhBaTycY=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		epO6ruxpYcQENq5Zpa8wkvAttC8=
+		eu4AJzxMP6I6lk3qwF/SL40RLUE=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		yI57tV2Sqk1CPCfH59Ldg2QLg90=
+		+6kVmyrNKIvqZqdiVWMjc0PHWpQ=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		C8vxUjYWLr0KRwil4SPoy5HH4Rw=
+		f/X377Nk3pGrHCuf9UsWktODbCU=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		epO6ruxpYcQENq5Zpa8wkvAttC8=
+		eu4AJzxMP6I6lk3qwF/SL40RLUE=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		yI57tV2Sqk1CPCfH59Ldg2QLg90=
+		+6kVmyrNKIvqZqdiVWMjc0PHWpQ=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		C8vxUjYWLr0KRwil4SPoy5HH4Rw=
+		f/X377Nk3pGrHCuf9UsWktODbCU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -83,21 +75,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8LBsaO5DIY0B+0gDy2znmOsHUY5WFTcc0mffNrcivXs=
-			</data>
-		</dict>
-		<key>Frameworks/libopencv.a</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			sU5yN5R98CUQsEgWGLHJiLtJaRYGc33FXF1y5FLSoh8=
-			</data>
-		</dict>
-		<key>Frameworks/libquikklycore.a</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			LBBJVtz+DZvcHBJgzN93gOKx5dpr+SdLmIWeE9D28Dk=
+			yoiBSrx2JhsJdwJIwzLJahl3kUp+TCfUDLjpxTHJLuQ=
 			</data>
 		</dict>
 		<key>Headers/QKScanViewController.h</key>
@@ -118,7 +96,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kSa/bUdRFRIoG/BuNGg4gQPMnPDqsA/V67vdlWj11EY=
+			P8k56NcjboP3X7bQe0b7/ASTK084XggcVDn1Jv5r7LQ=
 			</data>
 		</dict>
 		<key>Headers/Quikkly.h</key>
@@ -139,56 +117,56 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1oeflzK4o81lKf4zLmYxV0Z6mcVYzxwBnhWbbV5eRGk=
+			nIhakVLFMWwNUFn9ER3t8hrbsbEOYVyJTe9COR7IDXM=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1oeflzK4o81lKf4zLmYxV0Z6mcVYzxwBnhWbbV5eRGk=
+			nIhakVLFMWwNUFn9ER3t8hrbsbEOYVyJTe9COR7IDXM=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			viSY6DqfZN6E6YuSbTuTp535mhYRj730XdQT5Rh80Jg=
+			Uh0POlTIYvmWVdebfh3hyMjgduk1HGbWsnXjOfm6giE=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sHEgJm/yJ3/NU8+MJaybkUf/oh39H35JxlZxJKwcKZw=
+			WMWPRxe5nfpdUbFz0gulbl/IXhDOsz1i/ReJXBbRdVA=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			v/5s+z6lwosx2AI+C5P+S+njDgH+SqOcc5gPMATJsHU=
+			qRtDA4+9HKcfBYuWK3NOmatnctZ4HSG1LShlZ9oOtrU=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			viSY6DqfZN6E6YuSbTuTp535mhYRj730XdQT5Rh80Jg=
+			Uh0POlTIYvmWVdebfh3hyMjgduk1HGbWsnXjOfm6giE=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sHEgJm/yJ3/NU8+MJaybkUf/oh39H35JxlZxJKwcKZw=
+			WMWPRxe5nfpdUbFz0gulbl/IXhDOsz1i/ReJXBbRdVA=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			v/5s+z6lwosx2AI+C5P+S+njDgH+SqOcc5gPMATJsHU=
+			qRtDA4+9HKcfBYuWK3NOmatnctZ4HSG1LShlZ9oOtrU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
