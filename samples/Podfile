@@ -7,7 +7,7 @@ target 'DemoSample' do
     
     # Pods for DemoSample
     
-    pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git', :branch => 'xcode12-sim'
+    pod 'Quikkly', :git => 'https://github.com/quikkly/ios-sdk.git', :branch => 'xcode12.4-sim'
     
 end
 

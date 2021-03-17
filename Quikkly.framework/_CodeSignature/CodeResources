@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		vsHn8wEd4gU9WxbaLLnKyqubbqI=
+		aaAK2OKgKZkNL66XycrgbqpK5LY=
 		</data>
 		<key>Headers/QKScanViewController.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/Quikkly-Swift.h</key>
 		<data>
-		Z4htWkCzmn9eych9TQI4F991Qfw=
+		GJUpsqfZ/mZHl2Qj/GJViVV9pqc=
 		</data>
 		<key>Headers/Quikkly.h</key>
 		<data>
@@ -30,39 +30,39 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		m7VKRmTiQ4ZRCAiM1eAh14YJRys=
+		/1fJoojiXZX9xDgjE1AL5wONM4A=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		stESJLTB9hZEVBKrHAkYhBaTycY=
+		P5a+CZCNFk3iQXoDBBisfWnTf84=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		stESJLTB9hZEVBKrHAkYhBaTycY=
+		P5a+CZCNFk3iQXoDBBisfWnTf84=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		eu4AJzxMP6I6lk3qwF/SL40RLUE=
+		GlMBA3gazDsIkRKIHpsj6HoNpeQ=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		+6kVmyrNKIvqZqdiVWMjc0PHWpQ=
+		UPi+cx79RRHcbm60Xku0UsPb510=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		f/X377Nk3pGrHCuf9UsWktODbCU=
+		fWjjkVmeiZ8h4tgHRVEDwCN47f4=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		eu4AJzxMP6I6lk3qwF/SL40RLUE=
+		GlMBA3gazDsIkRKIHpsj6HoNpeQ=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		+6kVmyrNKIvqZqdiVWMjc0PHWpQ=
+		UPi+cx79RRHcbm60Xku0UsPb510=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		f/X377Nk3pGrHCuf9UsWktODbCU=
+		fWjjkVmeiZ8h4tgHRVEDwCN47f4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -75,7 +75,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yoiBSrx2JhsJdwJIwzLJahl3kUp+TCfUDLjpxTHJLuQ=
+			uhAXyO6fiMlIH/put97943Bcmtd6NRuC410RilYFeKI=
 			</data>
 		</dict>
 		<key>Headers/QKScanViewController.h</key>
@@ -96,7 +96,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P8k56NcjboP3X7bQe0b7/ASTK084XggcVDn1Jv5r7LQ=
+			wRndcw0piJIRKVPi2QihSHXQzWAeaw5T1C4eWTvPGY4=
 			</data>
 		</dict>
 		<key>Headers/Quikkly.h</key>
@@ -117,56 +117,56 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nIhakVLFMWwNUFn9ER3t8hrbsbEOYVyJTe9COR7IDXM=
+			tuXXH7K8BxMdaoSEPF0XNOi9rUo5xZWlxVfz2FuRYqA=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nIhakVLFMWwNUFn9ER3t8hrbsbEOYVyJTe9COR7IDXM=
+			tuXXH7K8BxMdaoSEPF0XNOi9rUo5xZWlxVfz2FuRYqA=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Uh0POlTIYvmWVdebfh3hyMjgduk1HGbWsnXjOfm6giE=
+			Ag4wYV6CsxhmxRweEhbsQ3cbXfUixa5F3AWMg1B972U=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WMWPRxe5nfpdUbFz0gulbl/IXhDOsz1i/ReJXBbRdVA=
+			CN+7qY/RGlQ5xTqpu83X5hfUkFLBycbdS5SlYg3J5ts=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qRtDA4+9HKcfBYuWK3NOmatnctZ4HSG1LShlZ9oOtrU=
+			b9ZDWIfbVpNwL9clH4tacJfQ3uKJnMQvWk6Pl6STaNA=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Uh0POlTIYvmWVdebfh3hyMjgduk1HGbWsnXjOfm6giE=
+			Ag4wYV6CsxhmxRweEhbsQ3cbXfUixa5F3AWMg1B972U=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WMWPRxe5nfpdUbFz0gulbl/IXhDOsz1i/ReJXBbRdVA=
+			CN+7qY/RGlQ5xTqpu83X5hfUkFLBycbdS5SlYg3J5ts=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qRtDA4+9HKcfBYuWK3NOmatnctZ4HSG1LShlZ9oOtrU=
+			b9ZDWIfbVpNwL9clH4tacJfQ3uKJnMQvWk6Pl6STaNA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
