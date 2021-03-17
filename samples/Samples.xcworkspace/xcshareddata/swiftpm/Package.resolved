@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Quikkly",
+        "repositoryURL": "https://github.com/quikkly/ios-sdk.git",
+        "state": {
+          "branch": "xcode12.4-xc",
+          "revision": "ef1041de3d1e6df04e7c417cc723f8b18cd4b16f",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

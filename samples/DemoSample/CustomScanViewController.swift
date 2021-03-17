@@ -17,6 +17,10 @@ class CustomScanViewController: ScanViewController {
         self.title = "Scan"
     }
     
+    @objc required dynamic convenience init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - ScanViewDelegate
     
     func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {
