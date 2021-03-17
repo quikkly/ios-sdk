@@ -215,8 +215,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class QKUser;
 
-SWIFT_CLASS_NAMED("Quikkly")
-@interface QKQuikkly : NSObject
+SWIFT_CLASS_NAMED("QuikklyApi")
+@interface QKQuikklyApi : NSObject
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable apiKey;)
 + (NSString * _Nullable)apiKey SWIFT_WARN_UNUSED_RESULT;
 + (void)setApiKey:(NSString * _Nullable)value;

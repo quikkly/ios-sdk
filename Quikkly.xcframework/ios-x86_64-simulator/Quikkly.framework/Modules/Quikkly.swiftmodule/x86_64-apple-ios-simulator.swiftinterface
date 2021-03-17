@@ -55,13 +55,13 @@ import WebKit
   @objc override dynamic public init()
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc(QKQuikkly) public class Quikkly : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc(QKQuikklyApi) public class QuikklyApi : ObjectiveC.NSObject {
   @objc public static var apiKey: Swift.String? {
     @objc get
     @objc set
   }
   @objc public static var blueprintFilename: Swift.String?
-  @objc public static var user: Quikkly.Quikkly.User?
+  @objc public static var user: Quikkly.QuikklyApi.User?
   @objc(QKUser) public class User : ObjectiveC.NSObject {
     @objc public var dob: Swift.String?
     @objc public var gender: Swift.String?
