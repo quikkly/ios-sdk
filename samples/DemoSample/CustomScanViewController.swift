@@ -20,15 +20,17 @@ class CustomScanViewController: ScanViewController {
     @objc required dynamic convenience init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     // MARK: - ScanViewDelegate
-    
-    func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {
+    @objc func scanView(_ scanView: ScanView, didDetectScannables scannables: [Scannable]) {
         if let scannable = scannables.first { // use first scannable
             // handle (in this case logging the scannable's value)
             print("Found scannable code: \(scannable.value)")
         }
     }
+     
+    
+    
     
 }
 

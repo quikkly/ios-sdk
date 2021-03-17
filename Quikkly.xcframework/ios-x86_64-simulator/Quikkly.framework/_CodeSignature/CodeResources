@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		glQHYUGQEcqLTry/ppC89uI6aNU=
+		Ysbt/66pCK0EBjzPnUcxyS75V5E=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		glQHYUGQEcqLTry/ppC89uI6aNU=
+		Ysbt/66pCK0EBjzPnUcxyS75V5E=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		fXqkrR/Pk6uhU+jkfQ4JAFdMJC8=
+		clVM3Rsn2oS40J0bQ+ESlc2BAcI=
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		fXqkrR/Pk6uhU+jkfQ4JAFdMJC8=
+		clVM3Rsn2oS40J0bQ+ESlc2BAcI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -117,14 +117,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pXdjInswUZvOnbia9Yy0YB9ccnrbe5J8Ji38MXEUHHY=
+			Ur2HPh6MG/gYkMq9SLJbFgGL+lNCLeFRHZxai9i99ys=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pXdjInswUZvOnbia9Yy0YB9ccnrbe5J8Ji38MXEUHHY=
+			Ur2HPh6MG/gYkMq9SLJbFgGL+lNCLeFRHZxai9i99ys=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -145,7 +145,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/qo2Tm98mkxTOb9kgoFcNL08OQs308/WUSWV1eDYJSY=
+			BxZKtTJunBl95HzkXQjl/CQIAyEuyosROc4rrpCKzO8=
 			</data>
 		</dict>
 		<key>Modules/Quikkly.swiftmodule/x86_64.swiftdoc</key>
@@ -166,7 +166,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/qo2Tm98mkxTOb9kgoFcNL08OQs308/WUSWV1eDYJSY=
+			BxZKtTJunBl95HzkXQjl/CQIAyEuyosROc4rrpCKzO8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
