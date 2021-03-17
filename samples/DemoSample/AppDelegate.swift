@@ -16,8 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Quikkly framework setup
-        //QuikklyApi.apiKey = "kCPeTZnGsmo90ZAu9q2rlXB94EAbUC2fvK7Ur95tLHsKFIYhYdt8Qrl80iVy" //Insert your api key here
-        QuikklyApi.apiKey = "" //Insert your api key here
+        QuikklyApi.apiKey = nil //api key no longer relevant
         
         let tabVC = UITabBarController()
         let vc0 = ScanContextViewController()
