@@ -1,0 +1,183 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Quikkly
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CoreImage
+import Foundation
+@_exported import Quikkly
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+@objc(QKScanViewDelegate) public protocol ScanViewDelegate {
+  @objc optional func scanView(_ scanView: Quikkly.ScanView, didDetectScannables scannables: [Quikkly.Scannable])
+  @objc optional func scanViewDidRequestCamera(status: AVFoundation.AVAuthorizationStatus) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc(QKScanView) @_Concurrency.MainActor(unsafe) public class ScanView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var zoom: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @objc @_Concurrency.MainActor(unsafe) weak public var delegate: (any Quikkly.ScanViewDelegate)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public var frame: CoreFoundation.CGRect {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc @_Concurrency.MainActor(unsafe) public func start()
+  @objc @_Concurrency.MainActor(unsafe) public func stop()
+  @IBAction @objc @_Concurrency.MainActor(unsafe) public func permissionsDeniedButtonPressed()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(QKScannableSkin) public class ScannableSkin : ObjectiveC.NSObject {
+  @objc(QKScannableSkinImageFit) public enum ImageFit : Swift.Int32 {
+    case templateDefault = 0
+    case stretch = 1
+    case meet = 2
+    case slice = 3
+    public init?(rawValue: Swift.Int32)
+    public typealias RawValue = Swift.Int32
+    public var rawValue: Swift.Int32 {
+      get
+    }
+  }
+  @objc public var backgroundColor: Swift.String?
+  @objc public var borderColor: Swift.String?
+  @objc public var dataColors: [Swift.String]?
+  @objc public var maskColor: Swift.String?
+  @objc public var overlayColor: Swift.String?
+  @objc public var imageUri: Swift.String?
+  @objc public var imageFit: Quikkly.ScannableSkin.ImageFit
+  @objc public var logoUri: Swift.String?
+  @objc public var logoFit: Quikkly.ScannableSkin.ImageFit
+  @objc public var joinOptions: Quikkly.QKScannableSkinJoinOption
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(QKQuikklyApi) public class QuikklyApi : ObjectiveC.NSObject {
+  @objc public static var apiKey: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc public static var blueprintFilename: Swift.String?
+  @objc public static var user: Quikkly.QuikklyApi.User?
+  @objc(QKUser) public class User : ObjectiveC.NSObject {
+    @objc public var dob: Swift.String?
+    @objc public var gender: Swift.String?
+    @objc public var identifier: Swift.Int
+    @objc public init(withId identifier: Swift.Int, gender: Swift.String?, dob: Swift.String?)
+    @objc deinit
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc(QKScannableViewDelegate) public protocol ScannableViewDelegate {
+  @objc optional func scannableViewWillStartLoading(_ scannableView: Quikkly.ScannableView)
+  @objc optional func scannableView(_ scannableView: Quikkly.ScannableView, didFinishLoading success: Swift.Bool)
+}
+@_inheritsConvenienceInitializers @objc(QKScannableView) @_Concurrency.MainActor(unsafe) public class ScannableView : UIKit.UIView, WebKit.WKNavigationDelegate {
+  @objc @_Concurrency.MainActor(unsafe) weak public var delegate: (any Quikkly.ScannableViewDelegate)?
+  @objc @_Concurrency.MainActor(unsafe) public var scannable: Quikkly.Scannable? {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @objc @_Concurrency.MainActor(unsafe) convenience public init(withScannable scannable: Quikkly.Scannable)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc @_Concurrency.MainActor(unsafe) public func reload()
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: any Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+public struct UIImageColors {
+  public var backgroundColor: UIKit.UIColor!
+  public var primaryColor: UIKit.UIColor!
+  public var secondaryColor: UIKit.UIColor!
+  public var detailColor: UIKit.UIColor!
+}
+extension UIKit.UIImage {
+  public func getColors(scaleDownSize: CoreFoundation.CGSize = CGSize.zero, completionHandler: @escaping (Quikkly.UIImageColors) -> Swift.Void)
+  public func getColors(scaleDownSize: CoreFoundation.CGSize = CGSize.zero) -> Quikkly.UIImageColors
+}
+@objc(QKScannableResult) public enum ScannablePipelineResult : Swift.Int {
+  case unknown = 0
+  case noFrameScanned = 10
+  case noShapesFound = 100
+  case shapeFound = 200
+  case dotsFound = 300
+  case success = 10000
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(QKScannablePipelineDelegate) public protocol ScannablePipelineDelegate {
+  @objc func pipelineDidProcessImage(_ image: CoreGraphics.CGImage, result: Quikkly.ScannablePipelineResult, scannables: [Quikkly.Scannable])
+}
+@_inheritsConvenienceInitializers @objc(QKScannablePipeline) public class ScannablePipeline : ObjectiveC.NSObject {
+  @objc weak public var delegate: (any Quikkly.ScannablePipelineDelegate)?
+  public class func process(_ image: CoreGraphics.CGImage) -> (Quikkly.ScannablePipelineResult, [Quikkly.Scannable])
+  @objc override convenience dynamic public init()
+  @objc public init(workQueue: Dispatch.DispatchQueue?, mainQueue: Dispatch.DispatchQueue = DispatchQueue.main)
+  @objc public func push(image: CoreGraphics.CGImage)
+  @objc public func clear()
+  @objc deinit
+}
+@objc @_Concurrency.MainActor(unsafe) open class ScanViewController : UIKit.UIViewController, Quikkly.ScanViewDelegate {
+  @_Concurrency.MainActor(unsafe) open var zoom: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var preferredInterfaceOrientationForPresentation: UIKit.UIInterfaceOrientation {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open var preferredStatusBarStyle: UIKit.UIStatusBarStyle {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) @objc dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc required convenience dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLayoutSubviews()
+  @objc @IBAction @_Concurrency.MainActor(unsafe) public func showActivityIndicator()
+  @objc @IBAction @_Concurrency.MainActor(unsafe) public func hideActivityIndicator()
+  @_Concurrency.MainActor(unsafe) @objc open func scanViewDidRequestCamera(status: AVFoundation.AVAuthorizationStatus) -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(QKScannable) public class Scannable : ObjectiveC.NSObject {
+  @objc public var value: Swift.UInt64 {
+    get
+  }
+  @objc public var template: Swift.String
+  @objc public var skin: Quikkly.ScannableSkin
+  @objc public var corners: [CoreFoundation.CGPoint] {
+    get
+  }
+  @objc public var svgString: Swift.String? {
+    @objc get
+  }
+  @objc public func getMappedData(_ completion: @escaping (_ mappedData: [Swift.String : Any]?) -> Swift.Void)
+  @objc public class func detect(inImage image: CoreGraphics.CGImage, completion: @escaping ([Quikkly.Scannable]) -> Swift.Void)
+  @objc public class func detect(inImage image: CoreGraphics.CGImage) -> [Quikkly.Scannable]
+  @objc convenience public init(withMappedData mappedData: [Swift.String : Any], template: Swift.String?, skin: Quikkly.ScannableSkin?, completion: @escaping (_ success: Swift.Bool, _ scannable: Quikkly.Scannable) -> Swift.Void)
+  @objc convenience public init(withValue value: Swift.UInt64, template: Swift.String?, skin: Quikkly.ScannableSkin)
+  @objc deinit
+}
+extension Quikkly.ScannableSkin.ImageFit : Swift.Equatable {}
+extension Quikkly.ScannableSkin.ImageFit : Swift.Hashable {}
+extension Quikkly.ScannableSkin.ImageFit : Swift.RawRepresentable {}
+extension Quikkly.ScannablePipelineResult : Swift.Equatable {}
+extension Quikkly.ScannablePipelineResult : Swift.Hashable {}
+extension Quikkly.ScannablePipelineResult : Swift.RawRepresentable {}

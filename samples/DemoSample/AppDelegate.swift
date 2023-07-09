@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Quikkly framework setup
         QuikklyApi.apiKey = nil //api key no longer relevant
-        
         let tabVC = UITabBarController()
         let vc0 = ScanContextViewController()
         vc0.tabBarItem = UITabBarItem(title: "Scanning", image: UIImage(named: "Image-TabBar-Scanning"), tag: 0)
