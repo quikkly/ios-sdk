@@ -1,6 +1,6 @@
 {
     "name": "Quikkly",
-    "version": "3.4.18",
+    "version": "3.4.20",
     "homepage": "https://quikklycodes.com/",
     "license": {
         "type": "Commercial",
@@ -11,12 +11,12 @@
     },
     "summary": "The Quikkly Smart Scannable SDK for iOS",
     "platforms": {
-        "ios": "8.0"
+        "ios": "13.0"
     },
     "swift_version": "5.0",
     "source": {
         "git": "https://github.com/quikkly/ios-sdk.git",
-        "tag": "3.4.18"
+        "tag": "3.4.20"
     },
     "vendored_frameworks": "Quikkly.xcframework",
     "requires_arc": true
